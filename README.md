@@ -4,11 +4,14 @@ Statyczna strona przygotowana pod GitHub Pages. Nie wymaga bundlera, Node.js ani
 
 ## Struktura
 
-- `index.html` - strona główna z linkami do dwóch podstron.
-- `fotografia/index.html` - przykładowy single page o fotografii.
-- `wedkarstwo/index.html` - przykładowy single page o wędkarstwie.
-- `styles.css` - wspólne style.
-- `assets/` - lokalne obrazy używane przez strony.
+- `index.html` - strona główna z linkiem do projektu.
+- `styles.css` - style strony głównej.
+- `assets/` - obrazy używane przez stronę główną.
+- `prototype/` - wzorcowy, wielostronicowy projekt z własnym `css/`, `js/`, `partials/` i `assets/`.
+- `landing/` - jednostronicowy (single page) landing dla lekarza medycyny estetycznej, z własnym `css/`, `js/` i `assets/`.
+
+Każdy projekt jest samodzielny — ma własny CSS i HTML (nie korzysta ze
+współdzielonych stylów z katalogu głównego).
 
 ## Jak podpiąć projekt pod GitHub Pages
 

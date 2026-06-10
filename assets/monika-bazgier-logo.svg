@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 420" role="img" aria-labelledby="title desc">
+  <title id="title">Logo Monika Bazgier</title>
+  <desc id="desc">Elegancki znak z monogramem MB oraz napisem Monika Bazgier.</desc>
+  <defs>
+    <style>
+      .mb-ink { fill: #17201e; }
+      .mb-green { fill: #2f5148; }
+      .mb-copper { fill: #a06f4e; }
+      .mb-line { fill: none; stroke: #2f5148; stroke-width: 7; stroke-linecap: round; stroke-linejoin: round; }
+      .mb-serif { font-family: Georgia, "Times New Roman", serif; }
+      .mb-sans { font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    </style>
+  </defs>
+
+  <rect width="940" height="420" fill="none"/>
+
+  <g transform="translate(86 58)">
+    <circle cx="152" cy="152" r="146" fill="#f7f3eb"/>
+    <circle cx="152" cy="152" r="142" class="mb-line"/>
+    <path
+      class="mb-copper"
+      d="M152 30c5 26 19 51 42 74 22 22 48 37 78 45-30 8-56 23-78 45-23 23-37 48-42 74-5-26-19-51-42-74-22-22-48-37-78-45 30-8 56-23 78-45 23-23 37-48 42-74Z"
+      opacity=".14"
+    />
+    <text x="82" y="177" class="mb-serif mb-green" font-size="128" font-weight="500" letter-spacing="-10">M</text>
+    <text x="151" y="177" class="mb-serif mb-ink" font-size="128" font-weight="500" letter-spacing="-8">B</text>
+    <path class="mb-line" d="M82 220h140"/>
+    <path class="mb-line" d="M152 66v172" opacity=".18"/>
+  </g>
+
+  <g transform="translate(390 104)">
+    <text x="0" y="70" class="mb-sans mb-copper" font-size="24" font-weight="700" letter-spacing="8">MONIKA</text>
+    <text x="0" y="178" class="mb-serif mb-ink" font-size="98" font-weight="500" letter-spacing="0">Bazgier</text>
+    <path class="mb-line" d="M4 216h452" opacity=".85"/>
+  </g>
+</svg>
