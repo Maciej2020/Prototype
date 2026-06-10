@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Przykładowe strony GitHub Pages</title>
+    <meta
+      name="description"
+      content="Statyczna strona startowa z linkami do dwóch przykładowych podstron: fotografia i wędkarstwo."
+    >
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="./">Monika Pages</a>
+      <nav class="top-nav" aria-label="Główna nawigacja">
+        <a href="fotografia/">Fotografia</a>
+        <a href="wedkarstwo/">Wędkarstwo</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="home-hero">
+        <div class="home-hero__content">
+          <p class="eyebrow">GitHub Pages demo</p>
+          <h1>Dwie proste podstrony gotowe do publikacji.</h1>
+          <p>
+            Ten katalog zawiera statyczną stronę główną oraz dwa przykładowe
+            single page: o fotografii i wędkarstwie.
+          </p>
+        </div>
+      </section>
+
+      <section class="page-grid" aria-label="Podstrony">
+        <article class="topic-card">
+          <img src="assets/fotografia-hero.png" alt="Aparat fotograficzny i odbitki na drewnianym stole">
+          <div class="topic-card__body">
+            <p class="eyebrow">Single page</p>
+            <h2>Fotografia</h2>
+            <p>Przykładowa strona usługowa dla sesji portretowych, reportażu i zdjęć produktowych.</p>
+            <a class="text-link" href="fotografia/">Otwórz stronę</a>
+          </div>
+        </article>
+
+        <article class="topic-card">
+          <img src="assets/wedkarstwo-hero.png" alt="Wędka i pudełko z przynętami nad spokojnym jeziorem">
+          <div class="topic-card__body">
+            <p class="eyebrow">Single page</p>
+            <h2>Wędkarstwo</h2>
+            <p>Przykładowa strona dla przewodnika wędkarskiego, wypraw i spokojnych poranków nad wodą.</p>
+            <a class="text-link" href="wedkarstwo/">Otwórz stronę</a>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>Statyczne HTML/CSS. Bez procesu build.</p>
+    </footer>
+  </body>
+</html>
