@@ -22,6 +22,18 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/styles.css" />
+
+    <script type="speculationrules">
+      {
+        "prerender": [
+          {
+            "source": "document",
+            "where": { "href_matches": "/*" },
+            "eagerness": "moderate"
+          }
+        ]
+      }
+    </script>
   </head>
   <body>
     <a class="skip-link" href="#main">Przejdź do treści</a>
@@ -35,6 +47,38 @@
         <a href="umow-wizyte.html">Umów wizytę</a>
       </nav>
     </noscript>
+
+    <header class="site-header" data-header>
+      <a class="brand" href="index.html" aria-label="Monika Bazgier — strona główna">
+        <span class="brand__mark" aria-hidden="true">MB</span>
+        <span class="brand__lockup">
+          <span class="brand__name">Monika Bazgier</span>
+          <span class="brand__meta">Medycyna estetyczna</span>
+        </span>
+      </a>
+
+      <button
+        class="nav-toggle"
+        type="button"
+        aria-label="Otwórz menu"
+        aria-expanded="false"
+        aria-controls="site-nav"
+        data-menu-button
+      >
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </button>
+
+      <nav class="site-nav" id="site-nav" aria-label="Nawigacja główna" data-nav>
+        <a href="o-mnie.html" data-navlink aria-current="page">O mnie</a>
+        <a href="zabiegi.html" data-navlink>Zabiegi</a>
+        <a href="galeria.html" data-navlink>Galeria</a>
+        <a class="btn btn--outline nav__cta" href="umow-wizyte.html" data-navlink
+          >Umów wizytę</a
+        >
+      </nav>
+    </header>
 
     <main id="main">
       <section class="band" aria-labelledby="ja-title">
@@ -94,7 +138,31 @@
       </section>
     </main>
 
-    <script src="js/include.js" defer></script>
+    <footer class="site-footer">
+      <div class="site-footer__inner">
+        <div class="site-footer__brand">
+          <span class="brand__mark brand__mark--sm" aria-hidden="true">MB</span>
+          <span class="brand__lockup">
+            <span class="brand__name">Monika Bazgier</span>
+            <span class="brand__meta">Medycyna estetyczna</span>
+          </span>
+        </div>
+
+        <div class="site-footer__contact">
+          <a href="mailto:kontakt@example.com">kontakt@example.com</a>
+          <a href="https://instagram.com/" rel="noopener" target="_blank"
+            >@monikabazgier</a
+          >
+          <a href="https://facebook.com/" rel="noopener" target="_blank">Facebook</a>
+        </div>
+      </div>
+
+      <p class="site-footer__copy">
+        &copy; <span data-current-year>2026</span> Monika Bazgier. Strona
+        informacyjna — treści nie zastępują konsultacji lekarskiej.
+      </p>
+    </footer>
+
     <script src="js/app.js" defer></script>
   </body>
 </html>
