@@ -1,0 +1,620 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>lek. Monika Bazgier | Medycyna estetyczna — naturalny efekt</title>
+    <meta
+      name="description"
+      content="lek. Monika Bazgier — medycyna estetyczna. Indywidualne podejście, kwalifikacja lekarska i naturalny efekt. Toksyna botulinowa, wypełniacze, modelowanie ust, stymulatory tkankowe. Umów konsultację."
+    />
+    <meta name="robots" content="index,follow" />
+    <meta name="theme-color" content="#f5f3ee" />
+    <meta name="color-scheme" content="light" />
+    <meta name="author" content="lek. Monika Bazgier" />
+
+    <!-- TODO: po wdrożeniu na docelowej domenie ustaw poprawny adres kanoniczny -->
+    <link rel="canonical" href="https://www.example.com/" />
+
+    <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg" />
+    <link rel="apple-touch-icon" href="assets/icons/favicon.svg" />
+
+    <!-- Open Graph / social -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="lek. Monika Bazgier | Medycyna estetyczna" />
+    <meta property="og:site_name" content="lek. Monika Bazgier — medycyna estetyczna" />
+    <meta property="og:locale" content="pl_PL" />
+    <meta
+      property="og:description"
+      content="Indywidualne podejście, kwalifikacja lekarska i naturalny efekt. Umów konsultację."
+    />
+    <meta property="og:url" content="https://www.example.com/" />
+    <meta property="og:image" content="assets/img/about-photo.JPG" />
+    <meta property="og:image:alt" content="lek. Monika Bazgier — lekarz medycyny estetycznej" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Czcionki: preconnect + display=swap dla szybkiego, bezpiecznego renderu.
+         Fallbacki systemowe są zdefiniowane w CSS, więc strona działa też bez sieci. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="css/style.css" />
+
+    <!-- Dane strukturalne dla wyszukiwarek (schema.org).
+         TODO: uzupełnij rzeczywisty adres, telefon i e-mail. -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Physician",
+        "name": "lek. Monika Bazgier",
+        "medicalSpecialty": "Aesthetic Medicine",
+        "description": "Lekarz medycyny estetycznej. Kwalifikacja lekarska, bezpieczne zabiegi i naturalny efekt.",
+        "image": "https://www.example.com/assets/img/about-photo.JPG",
+        "url": "https://www.example.com/",
+        "telephone": "+48000000000",
+        "email": "kontakt@example.com",
+        "priceRange": "$$",
+        "areaServed": "PL",
+        "sameAs": [
+          "https://instagram.com/monikabazgier",
+          "https://facebook.com/monikabazgier"
+        ]
+      }
+    </script>
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main">Przejdź do treści</a>
+
+    <!-- ============================ HEADER ============================ -->
+    <header class="site-header" data-header>
+      <div class="site-header__inner">
+        <a class="brand" href="#hero" aria-label="lek. Monika Bazgier — strona główna">
+          <span class="brand__mark" aria-hidden="true">MB</span>
+          <span class="brand__lockup">
+            <span class="brand__name">Monika Bazgier</span>
+            <span class="brand__meta">Medycyna estetyczna</span>
+          </span>
+        </a>
+
+        <button
+          class="nav-toggle"
+          type="button"
+          aria-label="Otwórz menu"
+          aria-expanded="false"
+          aria-controls="site-nav"
+          data-menu-button
+        >
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </button>
+
+        <nav class="site-nav" id="site-nav" aria-label="Nawigacja główna" data-nav>
+          <a href="#o-mnie" data-navlink>O mnie</a>
+          <a href="#zabiegi" data-navlink>Zabiegi</a>
+          <a href="#galeria" data-navlink>Galeria</a>
+          <a href="#opinie" data-navlink>Opinie</a>
+          <a href="#faq" data-navlink>FAQ</a>
+          <a class="btn btn--solid nav__cta" href="#kontakt" data-navlink>Umów wizytę</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <!-- ============================ HERO ============================ -->
+      <section class="hero" id="hero" aria-labelledby="hero-title">
+        <span class="hero__decor" aria-hidden="true">
+          <svg viewBox="0 0 304 304" fill="none" focusable="false">
+            <path
+              d="M152 36C166 118 186 138 268 152 186 166 166 186 152 268 138 186 118 166 36 152 118 138 138 118 152 36Z"
+              fill="currentColor"
+              opacity="0.12"
+            />
+          </svg>
+        </span>
+
+        <div class="hero__inner">
+          <span class="hero__mark" aria-hidden="true">MB</span>
+          <p class="hero__eyebrow">lek. Monika Bazgier</p>
+          <h1 id="hero-title">Medycyna&nbsp;estetyczna</h1>
+          <p class="hero__tagline">Indywidualne podejście i naturalny efekt.</p>
+          <p class="hero__lead">
+            Zabieg traktuję jako decyzję medyczną — zaczynamy od konsultacji
+            i rzetelnej kwalifikacji, a nie od wyboru z listy usług.
+          </p>
+          <div class="hero__actions">
+            <a class="btn btn--solid" href="#kontakt">Umów wizytę</a>
+            <a class="btn btn--outline" href="#zabiegi">Zobacz zabiegi</a>
+          </div>
+        </div>
+
+        <a class="hero__scroll" href="#zaufanie" aria-label="Przewiń do sekcji">
+          <span aria-hidden="true"></span>
+        </a>
+      </section>
+
+      <!-- ===================== PASEK ZAUFANIA ===================== -->
+      <section class="band band--tight" id="zaufanie" aria-labelledby="trust-title">
+        <div class="container">
+          <h2 id="trust-title" class="visually-hidden">Dlaczego warto mi zaufać</h2>
+          <ul class="trust-strip reveal" role="list">
+            <li class="trust-strip__item">
+              <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 2.5 4 6v6c0 4.5 3.2 7.8 8 9.5 4.8-1.7 8-5 8-9.5V6l-8-3.5Z" />
+                <path d="m8.8 12 2.3 2.3L15.5 10" class="ico--check" />
+              </svg>
+              <h3>Kwalifikacja lekarska</h3>
+              <p>Konsultacja i ocena wskazań przed każdym zabiegiem.</p>
+            </li>
+            <li class="trust-strip__item">
+              <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.5-7 10-7 10Z" />
+              </svg>
+              <h3>Naturalny efekt</h3>
+              <p>Subtelna poprawa, która podkreśla, a nie zmienia rysów.</p>
+            </li>
+            <li class="trust-strip__item">
+              <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="9" />
+                <path d="M12 7v5l3 2" class="ico--check" />
+              </svg>
+              <h3>Sprawdzone preparaty</h3>
+              <p>Certyfikowane produkty i pełna informacja przed wizytą.</p>
+            </li>
+            <li class="trust-strip__item">
+              <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 3 3 7l9 4 9-4-9-4Z" />
+                <path d="M7 9.5V14c0 1.7 2.2 3 5 3s5-1.3 5-3V9.5" class="ico--check" />
+              </svg>
+              <h3>Stały rozwój</h3>
+              <p>Wiedza poparta szkoleniami i aktualnymi standardami.</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ============================ O MNIE ============================ -->
+      <section class="band" id="o-mnie" aria-labelledby="about-title">
+        <div class="container split">
+          <div class="split__media reveal">
+            <img
+              src="assets/img/about-photo.JPG"
+              alt="lek. Monika Bazgier — lekarz medycyny estetycznej"
+              width="1536"
+              height="2048"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+          <div class="split__body reveal">
+            <p class="kicker">O mnie</p>
+            <h2 id="about-title">lek. Monika Bazgier</h2>
+            <p>
+              Jestem lekarką, dla której medycyna estetyczna to przede wszystkim
+              odpowiedzialność. Zanim zaproponuję jakikolwiek zabieg, dokładnie
+              analizuję twarz, oczekiwania i możliwe ograniczenia — tak, aby
+              efekt był naturalny i bezpieczny.
+            </p>
+            <p>
+              W pracy stawiam na spokojną rozmowę i realne planowanie. Nie
+              namawiam na zabiegi „na zapas” — wspólnie ustalamy, co naprawdę ma
+              sens i w jakiej kolejności.
+            </p>
+            <p>
+              Stale poszerzam wiedzę na szkoleniach i konferencjach, bo medycyna
+              estetyczna szybko się zmienia, a bezpieczeństwo pacjenta zawsze
+              jest najważniejsze.
+            </p>
+
+            <ul class="values" role="list">
+              <li><strong>Bezpieczeństwo</strong> — higiena, sprawdzone preparaty i pełna informacja.</li>
+              <li><strong>Naturalność</strong> — harmonijny efekt z poszanowaniem proporcji.</li>
+              <li><strong>Zaufanie</strong> — decyzje podejmowane wspólnie, bez pośpiechu.</li>
+            </ul>
+
+            <a class="btn btn--solid" href="#kontakt">Umów konsultację</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================== PODEJŚCIE ========================== -->
+      <section class="band band--greige" id="podejscie" aria-labelledby="approach-title">
+        <div class="container">
+          <div class="section-head reveal">
+            <p class="kicker">Podejście</p>
+            <h2 id="approach-title">Najpierw kwalifikacja, potem decyzja</h2>
+            <p class="lead">Zabieg jest decyzją medyczną, nie wyborem z listy usług.</p>
+          </div>
+          <ol class="steps" role="list">
+            <li class="step reveal">
+              <span class="step__num" aria-hidden="true">01</span>
+              <h3>Konsultacja</h3>
+              <p>Rozmowa o oczekiwaniach, wskazaniach i przeciwwskazaniach oraz realnym zakresie poprawy.</p>
+            </li>
+            <li class="step reveal">
+              <span class="step__num" aria-hidden="true">02</span>
+              <h3>Plan terapii</h3>
+              <p>Dobór zabiegów, ich kolejność i rozsądne odstępy między wizytami.</p>
+            </li>
+            <li class="step reveal">
+              <span class="step__num" aria-hidden="true">03</span>
+              <h3>Zabieg i opieka</h3>
+              <p>Jasne omówienie efektu, ryzyka oraz zaleceń na okres rekonwalescencji.</p>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- ============================ ZABIEGI ============================ -->
+      <section class="band" id="zabiegi" aria-labelledby="offer-title">
+        <div class="container">
+          <div class="section-head reveal">
+            <p class="kicker">Zabiegi</p>
+            <h2 id="offer-title">Oferta zabiegowa</h2>
+            <p class="lead">
+              Zakres zabiegów oraz wybór preparatu zawsze ustalany jest
+              indywidualnie podczas konsultacji lekarskiej.
+            </p>
+          </div>
+
+          <div class="offer-grid">
+            <article class="offer reveal">
+              <svg class="offer__ico" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4 14c3-1 5-3 7-7 1.5 2.5 3.5 4.5 6 6-2.5 1.5-4.5 3.5-6 6-1.5-2.5-3.5-4.5-7-5Z" />
+              </svg>
+              <h3>Toksyna botulinowa</h3>
+              <p class="offer__sub">Redukcja zmarszczek mimicznych i wskazania medyczne.</p>
+              <ul>
+                <li>Zmarszczki czoła, „lwia zmarszczka”, kurze łapki</li>
+                <li>Bruksizm (nadmierne napięcie żwaczy)</li>
+                <li>Nadpotliwość pach</li>
+              </ul>
+            </article>
+
+            <article class="offer reveal">
+              <svg class="offer__ico" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="8" />
+                <circle cx="12" cy="12" r="3.2" class="ico--check" />
+              </svg>
+              <h3>Wypełniacze i wolumetria</h3>
+              <p class="offer__sub">Odbudowa objętości i harmonizacja rysów.</p>
+              <ul>
+                <li>Modelowanie policzków i owalu twarzy</li>
+                <li>Korekta bruzd i doliny łez</li>
+                <li>Przywracanie proporcji twarzy</li>
+              </ul>
+            </article>
+
+            <article class="offer reveal">
+              <svg class="offer__ico" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M5 12c2.5-2.5 4.5-3.5 7-3.5s4.5 1 7 3.5c-2.5 2.5-4.5 3.5-7 3.5S7.5 14.5 5 12Z" />
+              </svg>
+              <h3>Modelowanie ust</h3>
+              <p class="offer__sub">Z poszanowaniem naturalnych proporcji.</p>
+              <ul>
+                <li>Subtelne nawilżenie i odżywienie</li>
+                <li>Korekta asymetrii</li>
+                <li>Delikatne podkreślenie kształtu</li>
+              </ul>
+            </article>
+
+            <article class="offer reveal">
+              <svg class="offer__ico" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 3v18M3 12h18" />
+                <circle cx="12" cy="12" r="9" class="ico--check" />
+              </svg>
+              <h3>Stymulatory tkankowe</h3>
+              <p class="offer__sub">Biostymulacja i poprawa jakości skóry.</p>
+              <ul>
+                <li>Nawilżenie i poprawa napięcia skóry</li>
+                <li>Stymulacja produkcji kolagenu</li>
+                <li>Rewitalizacja twarzy, szyi i dłoni</li>
+              </ul>
+            </article>
+
+            <article class="offer reveal">
+              <svg class="offer__ico" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.5-7 10-7 10Z" />
+              </svg>
+              <h3>Zabiegi autologiczne</h3>
+              <p class="offer__sub">Terapie regeneracyjne z materiału własnego pacjenta.</p>
+              <ul>
+                <li>Regeneracja i poprawa kondycji skóry</li>
+                <li>Wsparcie naturalnej regeneracji</li>
+                <li>Naturalny efekt odświeżenia</li>
+              </ul>
+            </article>
+
+            <article class="offer offer--cta reveal">
+              <h3>Nie wiesz, który zabieg wybrać?</h3>
+              <p class="offer__sub">Zacznij od konsultacji — wspólnie ustalimy plan dopasowany do Ciebie.</p>
+              <a class="btn btn--solid" href="#kontakt">Umów konsultację</a>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================ GALERIA ============================ -->
+      <section class="band band--greige" id="galeria" aria-labelledby="gallery-title">
+        <div class="container">
+          <div class="section-head reveal">
+            <p class="kicker">Galeria</p>
+            <h2 id="gallery-title">Efekty zabiegów</h2>
+            <p class="lead">
+              Wybrane zdjęcia przed i po. Rezultaty są indywidualne i zależą od
+              cech pacjenta oraz przyjętego planu leczenia.
+            </p>
+          </div>
+
+          <div class="gallery">
+            <figure class="gallery__item reveal">
+              <button class="gallery__btn" type="button" data-lightbox="assets/img/1.jpg" aria-label="Powiększ: modelowanie ust — przed i po">
+                <img src="assets/img/1.jpg" alt="Modelowanie ust — efekt przed i po" width="1179" height="1466" loading="lazy" decoding="async" />
+              </button>
+              <figcaption class="gallery__cap">Modelowanie ust — przed i po</figcaption>
+            </figure>
+
+            <figure class="gallery__item reveal">
+              <button class="gallery__btn" type="button" data-lightbox="assets/img/2.jpg" aria-label="Powiększ: modelowanie ust — przed i po">
+                <img src="assets/img/2.jpg" alt="Modelowanie ust — efekt przed i po" width="1179" height="1459" loading="lazy" decoding="async" />
+              </button>
+              <figcaption class="gallery__cap">Modelowanie ust — przed i po</figcaption>
+            </figure>
+
+            <figure class="gallery__item reveal">
+              <button class="gallery__btn" type="button" data-lightbox="assets/img/3.jpg" aria-label="Powiększ: profil ust — przed i po">
+                <img src="assets/img/3.jpg" alt="Modelowanie ust — ujęcie profilowe, przed i po" width="1179" height="1476" loading="lazy" decoding="async" />
+              </button>
+              <figcaption class="gallery__cap">Profil ust — przed i po</figcaption>
+            </figure>
+
+            <figure class="gallery__item reveal">
+              <button class="gallery__btn" type="button" data-lightbox="assets/img/4.jpg" aria-label="Powiększ: korekta uśmiechu — przed i po">
+                <img src="assets/img/4.jpg" alt="Korekta linii ust i uśmiechu — przed i po" width="1179" height="1471" loading="lazy" decoding="async" />
+              </button>
+              <figcaption class="gallery__cap">Korekta uśmiechu — przed i po</figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================ OPINIE ============================ -->
+      <!-- TODO: zastąp poniższe opinie prawdziwymi (np. z Google / Booksy) za zgodą pacjentów. -->
+      <section class="band" id="opinie" aria-labelledby="reviews-title">
+        <div class="container">
+          <div class="section-head reveal">
+            <p class="kicker">Opinie</p>
+            <h2 id="reviews-title">Co mówią pacjentki</h2>
+            <p class="lead">Najważniejsze są dla mnie zaufanie i komfort każdej wizyty.</p>
+          </div>
+
+          <div class="reviews">
+            <figure class="review reveal">
+              <div class="review__stars" aria-label="Ocena 5 na 5">★★★★★</div>
+              <blockquote>
+                „Pełen profesjonalizm i spokój. Wszystko zostało mi dokładnie
+                wyjaśnione, a efekt wygląda naturalnie — dokładnie tak, jak chciałam.”
+              </blockquote>
+              <figcaption>Anna K.</figcaption>
+            </figure>
+            <figure class="review reveal">
+              <div class="review__stars" aria-label="Ocena 5 na 5">★★★★★</div>
+              <blockquote>
+                „Doceniam, że nie było presji na zabieg. Najpierw konsultacja
+                i realny plan. Czułam się zaopiekowana na każdym etapie.”
+              </blockquote>
+              <figcaption>Magdalena W.</figcaption>
+            </figure>
+            <figure class="review reveal">
+              <div class="review__stars" aria-label="Ocena 5 na 5">★★★★★</div>
+              <blockquote>
+                „Delikatne modelowanie ust, dokładnie tak subtelne, jak chciałam.
+                Polecam każdej osobie, która ceni naturalny efekt.”
+              </blockquote>
+              <figcaption>Karolina S.</figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================== FAQ ============================== -->
+      <section class="band band--greige" id="faq" aria-labelledby="faq-title">
+        <div class="container container--narrow">
+          <div class="section-head reveal">
+            <p class="kicker">Pytania</p>
+            <h2 id="faq-title">Najczęstsze pytania</h2>
+          </div>
+
+          <div class="faq">
+            <details class="faq__item reveal">
+              <summary>Od czego zaczyna się współpraca?</summary>
+              <div class="faq__body">
+                <p>
+                  Zawsze od konsultacji. Rozmawiamy o oczekiwaniach, oceniam
+                  wskazania i przeciwwskazania, a następnie wspólnie ustalamy plan.
+                  Żaden zabieg nie odbywa się bez wcześniejszej kwalifikacji.
+                </p>
+              </div>
+            </details>
+            <details class="faq__item reveal">
+              <summary>Czy efekty wyglądają naturalnie?</summary>
+              <div class="faq__body">
+                <p>
+                  Tak — celem jest subtelna poprawa, która podkreśla naturalne
+                  cechy i zachowuje proporcje oraz mimikę twarzy.
+                </p>
+              </div>
+            </details>
+            <details class="faq__item reveal">
+              <summary>Czy zabieg boli?</summary>
+              <div class="faq__body">
+                <p>
+                  Większość zabiegów jest dobrze tolerowana. W razie potrzeby
+                  stosuje się znieczulenie miejscowe, a wszystkie szczegóły
+                  omawiamy przed rozpoczęciem.
+                </p>
+              </div>
+            </details>
+            <details class="faq__item reveal">
+              <summary>Kiedy widać efekt i jak długo się utrzymuje?</summary>
+              <div class="faq__body">
+                <p>
+                  To zależy od rodzaju zabiegu — część efektów jest widoczna od
+                  razu, inne rozwijają się stopniowo. Czas utrzymywania się
+                  rezultatu omawiamy indywidualnie podczas konsultacji.
+                </p>
+              </div>
+            </details>
+            <details class="faq__item reveal">
+              <summary>Jak przygotować się do wizyty?</summary>
+              <div class="faq__body">
+                <p>
+                  Przyjdź bez makijażu w okolicy planowanego zabiegu i poinformuj
+                  o przyjmowanych lekach oraz chorobach przewlekłych. Szczegółowe
+                  zalecenia otrzymasz przy umawianiu wizyty.
+                </p>
+              </div>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================ KONTAKT ============================ -->
+      <section class="band" id="kontakt" aria-labelledby="contact-title">
+        <div class="container">
+          <div class="section-head reveal">
+            <p class="kicker">Rejestracja</p>
+            <h2 id="contact-title">Umów wizytę</h2>
+            <p class="lead">
+              Wizyty odbywają się po wcześniejszej rejestracji. Najszybciej
+              umówisz się telefonicznie lub mailowo.
+            </p>
+          </div>
+
+          <div class="contact-grid">
+            <!-- Szybki kontakt -->
+            <div class="contact-info reveal">
+              <h3>Kontakt bezpośredni</h3>
+              <!-- TODO: uzupełnij prawdziwe dane kontaktowe -->
+              <ul class="contact-list" role="list">
+                <li>
+                  <span class="contact-list__label">Telefon</span>
+                  <a href="tel:+48000000000">+48 000 000 000</a>
+                </li>
+                <li>
+                  <span class="contact-list__label">E-mail</span>
+                  <a href="mailto:kontakt@example.com">kontakt@example.com</a>
+                </li>
+                <li>
+                  <span class="contact-list__label">Instagram</span>
+                  <a href="https://instagram.com/monikabazgier" target="_blank" rel="noopener">@monikabazgier</a>
+                </li>
+                <li>
+                  <span class="contact-list__label">Facebook</span>
+                  <a href="https://facebook.com/monikabazgier" target="_blank" rel="noopener">Monika Bazgier</a>
+                </li>
+              </ul>
+
+              <p class="contact-note">
+                Przyjmuję w kilku lokalizacjach — dogodne miejsce i termin
+                ustalimy podczas rejestracji.
+              </p>
+
+              <div class="contact-actions">
+                <a class="btn btn--solid" href="tel:+48000000000">Zadzwoń teraz</a>
+                <a class="btn btn--outline" href="mailto:kontakt@example.com">Napisz e-mail</a>
+              </div>
+            </div>
+
+            <!-- Formularz -->
+            <div class="contact-form-wrap reveal">
+              <h3>Wyślij zapytanie</h3>
+              <form class="contact-form" data-contact-form novalidate>
+                <div class="field">
+                  <label for="cf-name">Imię i nazwisko</label>
+                  <input type="text" id="cf-name" name="name" autocomplete="name" required aria-describedby="err-name" />
+                  <span class="field__error" id="err-name" data-error-for="cf-name" aria-live="polite"></span>
+                </div>
+
+                <div class="field">
+                  <label for="cf-email">E-mail</label>
+                  <input type="email" id="cf-email" name="email" autocomplete="email" required aria-describedby="err-email" />
+                  <span class="field__error" id="err-email" data-error-for="cf-email" aria-live="polite"></span>
+                </div>
+
+                <div class="field">
+                  <label for="cf-phone">Telefon <span class="field__opt">(opcjonalnie)</span></label>
+                  <input type="tel" id="cf-phone" name="phone" autocomplete="tel" inputmode="tel" />
+                </div>
+
+                <div class="field">
+                  <label for="cf-message">Wiadomość</label>
+                  <textarea id="cf-message" name="message" rows="4" required aria-describedby="err-message"></textarea>
+                  <span class="field__error" id="err-message" data-error-for="cf-message" aria-live="polite"></span>
+                </div>
+
+                <div class="field field--check">
+                  <input type="checkbox" id="cf-consent" name="consent" required aria-describedby="err-consent" />
+                  <label for="cf-consent">
+                    Wyrażam zgodę na przetwarzanie moich danych w celu kontaktu
+                    zwrotnego (<a href="#" rel="noopener">polityka prywatności</a>).
+                  </label>
+                  <span class="field__error" id="err-consent" data-error-for="cf-consent" aria-live="polite"></span>
+                </div>
+
+                <button class="btn btn--solid btn--block" type="submit">Wyślij wiadomość</button>
+                <p class="form-status" data-form-status role="status" aria-live="polite"></p>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ============================ FOOTER ============================ -->
+    <footer class="site-footer">
+      <div class="site-footer__inner">
+        <div class="site-footer__brand">
+          <span class="brand__mark brand__mark--sm" aria-hidden="true">MB</span>
+          <span class="brand__lockup">
+            <span class="brand__name">Monika Bazgier</span>
+            <span class="brand__meta">Medycyna estetyczna</span>
+          </span>
+        </div>
+
+        <nav class="site-footer__nav" aria-label="Stopka">
+          <a href="#o-mnie">O mnie</a>
+          <a href="#zabiegi">Zabiegi</a>
+          <a href="#galeria">Galeria</a>
+          <a href="#faq">FAQ</a>
+          <a href="#kontakt">Kontakt</a>
+        </nav>
+
+        <div class="site-footer__contact">
+          <a href="mailto:kontakt@example.com">kontakt@example.com</a>
+          <a href="https://instagram.com/monikabazgier" rel="noopener" target="_blank">@monikabazgier</a>
+          <a href="https://facebook.com/monikabazgier" rel="noopener" target="_blank">Facebook</a>
+        </div>
+      </div>
+
+      <p class="site-footer__copy">
+        &copy; <span data-current-year>2026</span> lek. Monika Bazgier.
+        Strona informacyjna — treści nie zastępują konsultacji lekarskiej.
+      </p>
+    </footer>
+
+    <!-- Lightbox galerii -->
+    <dialog class="lightbox" data-lightbox-dialog aria-label="Podgląd zdjęcia">
+      <button class="lightbox__close" type="button" data-lightbox-close aria-label="Zamknij podgląd">&times;</button>
+      <img src="" alt="" data-lightbox-img />
+    </dialog>
+
+    <script src="js/script.js" defer></script>
+  </body>
+</html>
