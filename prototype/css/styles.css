@@ -496,19 +496,431 @@ img {
   }
 }
 
-/* ---------- Kontakt ---------- */
-.contact {
+/* ---------- Certyfikaty (karuzela Splide — wzór "Auto Width/Height") ---------- */
+.certs-carousel {
+  position: relative;
+  /* Cała karuzela (slajdy + strzałki) zamknięta w jasnoszarym
+     "kontenerze"-karcie, żeby certyfikaty wyraźnie się na nim odcinały
+     kontrastem. Szerokość celowo niezawężona (pełna szerokość sekcji jak
+     reszta strony), żeby jednocześnie mieściły się w niej ok. 3 certyfikaty. */
+  margin: 36px auto 0;
+  padding: 28px 16px 22px;
+  background: var(--greige);
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+}
+
+/* Splide dostarcza tylko "core" CSS (bez motywu) — kolory, odstępy i
+   powiększenie aktywnego slajdu dopasowujemy tutaj do reszty strony.
+   Powtarzamy tu też "display: flex" i "position/overflow" toru jako
+   zabezpieczenie na wypadek chwilowego braku arkusza "splide-core.min.css"
+   (np. wolne łącze) — sam plik JS Splide i tak nadpisze te węzły poprawnie
+   po zamontowaniu karuzeli. */
+.certs-carousel .splide__track {
+  position: relative;
+  overflow: hidden;
+  /* Dodatkowy zapas pionowy i boczny, żeby aktywny (powiększony o 20%)
+     certyfikat nie był przycinany przez overflow toru karuzeli. */
+  padding: 40px 18px 46px;
+}
+
+.certs-carousel .splide__list {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.certs-carousel .splide__slide {
+  flex-shrink: 0;
+  width: 280px;
+}
+
+@media (min-width: 720px) {
+  .certs-carousel .splide__slide {
+    width: 360px;
+  }
+}
+
+.certs-carousel__link {
+  display: block;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+  /* Reset domyślnych stylów przycisku — karta certyfikatu jest teraz
+     <button>, który otwiera podgląd w oknie modalnym, a nie odnośnikiem. */
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  transform: scale(1);
+  transform-origin: center;
+  transition: transform 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
+  will-change: transform;
+}
+
+.certs-carousel__figure {
+  margin: 0;
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--line-soft);
+  border-radius: 4px;
+  transition:
+    border-color 0.22s ease,
+    box-shadow 0.22s ease,
+    opacity 0.22s ease;
+}
+
+.certs-carousel__figure img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 900 / 636;
+  object-fit: cover;
+  object-position: center;
+}
+
+.certs-carousel__link:hover .certs-carousel__figure,
+.certs-carousel__link:focus-visible .certs-carousel__figure {
+  border-color: var(--line);
+  box-shadow: var(--shadow);
+}
+
+/* Aktywny (wyśrodkowany) certyfikat: 20% większy i wyraźnie oprawiony
+   ramką — Splide sam dopisuje klasę "is-active" do bieżącego slajdu
+   (także przy zapętlonym przewijaniu), więc nie trzeba tego liczyć ręcznie. */
+.certs-carousel .splide__slide.is-active .certs-carousel__link {
+  transform: scale(1.2);
+  z-index: 2;
+}
+
+.certs-carousel .splide__slide.is-active .certs-carousel__figure {
+  border-color: var(--ink);
+  box-shadow:
+    0 0 0 3px var(--surface),
+    0 0 0 5px var(--ink),
+    var(--shadow);
+}
+
+.certs-carousel .splide__slide:not(.is-active) .certs-carousel__figure {
+  opacity: 0.82;
+}
+
+.certs-carousel__cap {
   display: grid;
-  gap: 8px;
-  max-width: 520px;
+  gap: 4px;
+  padding: 14px 16px;
+}
+
+.certs-carousel__name {
+  font-size: 0.94rem;
+  color: var(--ink);
+}
+
+.certs-carousel__controls {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 4px;
+}
+
+.certs-carousel__btn {
+  display: inline-grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  font-size: 1.3rem;
+  line-height: 1;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  cursor: pointer;
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease;
+}
+
+.certs-carousel__btn:hover,
+.certs-carousel__btn:focus-visible {
+  color: var(--cream);
+  background: var(--ink);
+}
+
+.certs-carousel__btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+/* ---------- Popup z podglądem certyfikatu ---------- */
+.cert-modal {
+  position: fixed;
+  margin: auto;
+  /* Szerokość jako % szerokości ekranu, żeby zdjęcie certyfikatu było
+     realnie duże na typowych monitorach — 82vw daje spory podgląd, a
+     górny limit w px chroni przed absurdalnie wielkim oknem na bardzo
+     szerokich/4K ekranach. */
+  max-width: min(82vw, 1400px);
+  max-height: min(92vh, 960px);
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+  /* Szare tło samego okna popupu (nie mylić z przyciemnionym tłem strony
+     poniżej, ::backdrop) — neutralny szary, żeby zdjęcie certyfikatu się
+     na nim wyraźnie odcinało. */
+  background: #4a4a4a;
+  box-shadow: var(--shadow);
+  overflow: visible;
+}
+
+.cert-modal::backdrop {
+  /* Wyszarzone, przyciemnione tło reszty strony pod popupem. */
+  background: rgba(90, 90, 90, 0.75);
+}
+
+.cert-modal[open] {
+  display: flex;
+  flex-direction: column;
+}
+
+.cert-modal__close {
+  position: absolute;
+  top: -16px;
+  right: -16px;
+  display: inline-grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  font-size: 1.4rem;
+  line-height: 1;
+  color: var(--cream);
+  background: var(--ink);
+  border: 2px solid var(--surface);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  z-index: 1;
+}
+
+.cert-modal__close:hover,
+.cert-modal__close:focus-visible {
+  transform: scale(1.08);
+}
+
+.cert-modal__viewer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 22px 22px 0;
+}
+
+.cert-modal__nav {
+  display: inline-grid;
+  flex: 0 0 40px;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  font-size: 1.3rem;
+  line-height: 1;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  cursor: pointer;
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease;
+}
+
+.cert-modal__nav:hover,
+.cert-modal__nav:focus-visible {
+  color: var(--cream);
+  background: var(--ink);
+}
+
+.cert-modal__img {
+  display: block;
+  flex: 1 1 auto;
+  min-width: 0;
+  width: 100%;
+  /* Wysokość liczona z vh (a nie sztywnych px), spójnie z szerokością
+     opartą na vw — zdjęcie skaluje się razem z rozmiarem ekranu. Odjęte
+     150px to zapas na padding widoku i pasek miniaturek pod spodem, żeby
+     popup nigdy nie był wyższy niż jego własny max-height. */
+  max-height: min(calc(92vh - 150px), 810px);
+  object-fit: contain;
+  background: var(--greige-soft);
+  border-radius: 6px;
+}
+
+.cert-modal__thumbs {
+  display: flex;
+  gap: 10px;
+  margin: 0;
+  padding: 16px 22px 22px;
+  list-style: none;
+  overflow-x: auto;
+}
+
+.cert-modal__thumb-item {
+  flex: 0 0 auto;
+}
+
+.cert-modal__thumb {
+  display: block;
+  padding: 0;
+  overflow: hidden;
+  background: none;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  opacity: 0.6;
+  transition:
+    opacity 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.cert-modal__thumb img {
+  display: block;
+  width: 68px;
+  height: 48px;
+  object-fit: cover;
+}
+
+.cert-modal__thumb:hover,
+.cert-modal__thumb:focus-visible {
+  opacity: 0.85;
+}
+
+.cert-modal__thumb.is-active {
+  /* Jasna ramka, żeby aktywna miniaturka była wyraźnie widoczna na
+     szarym tle popupu. */
+  border-color: var(--surface);
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cert-modal__close {
+    transition: none;
+  }
+}
+
+@media (max-width: 720px) {
+  /* Na urządzeniach mobilnych popup ma pełną szerokość ekranu, ale poza tym
+     działa tak jak w wersji desktopowej: wysokość dopasowana do treści,
+     wyśrodkowana w pionie (margin: auto z bazowej reguły), dzięki czemu
+     nad/pod oknem widać przyciemnione, półprzezroczyste tło reszty strony
+     (::backdrop) — a nie pełnoekranowy, jednolity prostokąt popupu. */
+  .cert-modal {
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-width: 100%;
+    border-radius: 0;
+  }
+
+  .cert-modal__close {
+    /* Bez marginesu po bokach nie ma już miejsca na przycisk "na zewnątrz"
+       popupu (ujemny offset w poziomie) — chowamy go do środka, w róg. */
+    top: 12px;
+    right: 12px;
+  }
+
+  .cert-modal__viewer {
+    /* Strzałki nie zajmują już miejsca w rzędzie obok zdjęcia — są nałożone
+       na jego krawędzie (position: absolute poniżej). Dzięki temu certyfikat
+       dostaje PEŁNĄ szerokość ekranu i jest wyraźnie większy oraz czytelniejszy
+       niż wtedy, gdy strzałki „zjadały" ~⅓ szerokości. */
+    position: relative;
+    flex: 0 1 auto;
+    min-height: 0;
+    gap: 0;
+    padding: 56px 0 0;
+  }
+
+  .cert-modal__nav {
+    /* Nawigacja jako półprzezroczyste, okrągłe przyciski nałożone na lewą i
+       prawą krawędź zdjęcia, pionowo wyśrodkowane — standardowy wzorzec
+       lightboxa, który nie odbiera zdjęciu szerokości. */
+    position: absolute;
+    /* Viewer ma 56px górnego paddingu (miejsce na przycisk zamknięcia), więc
+       samo top:50% wypadłoby ~28px nad środkiem zdjęcia — kompensujemy to
+       połową paddingu, żeby strzałki były dokładnie na osi pionowej zdjęcia. */
+    top: calc(50% + 28px);
+    transform: translateY(-50%);
+    z-index: 2;
+    flex: none;
+    width: 44px;
+    height: 44px;
+    font-size: 1.5rem;
+    color: var(--ink);
+    background: rgba(245, 243, 238, 0.85);
+    border: none;
+    border-radius: 50%;
+    box-shadow: 0 2px 10px rgba(63, 58, 52, 0.35);
+  }
+
+  .cert-modal__nav--prev {
+    left: 6px;
+  }
+
+  .cert-modal__nav--next {
+    right: 6px;
+  }
+
+  .cert-modal__nav:hover,
+  .cert-modal__nav:focus-visible {
+    color: var(--cream);
+    background: var(--ink);
+  }
+
+  .cert-modal__img {
+    /* Pełna szerokość ekranu = maksymalny możliwy rozmiar poziomego
+       certyfikatu na pionowym telefonie. Wysokość wynika z proporcji, a
+       wyższy limit (72vh) pozwala zdjęciu urosnąć na wysokich ekranach oraz
+       w orientacji poziomej. */
+    width: 100%;
+    height: auto;
+    max-height: 72vh;
+    background: transparent;
+    border-radius: 0;
+  }
+
+  .cert-modal__thumbs {
+    /* Miniaturki tuż pod aktywnym zdjęciem, bez dużego odstępu. */
+    flex: 0 0 auto;
+    margin-top: 8px;
+    padding: 0 12px 14px;
+  }
+}
+
+/* ---------- Kontakt (pozycje ułożone poziomo, w rząd) ---------- */
+.contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 26px 44px;
+  max-width: 900px;
 }
 
 .contact--center {
   margin-inline: auto;
+  justify-content: center;
+}
+
+.contact__item {
+  display: grid;
+  gap: 8px;
 }
 
 .contact__label {
-  margin-top: 16px;
+  margin: 0;
   font-size: 0.7rem;
   font-weight: 500;
   letter-spacing: 0.22em;
@@ -526,12 +938,48 @@ img {
   text-decoration: underline;
 }
 
-/* ---------- Placówki (lokalizacje) ---------- */
+/* ---------- Placówki (lokalizacje), pogrupowane wg miasta ---------- */
+.locations-groups {
+  margin-top: 36px;
+}
+
+.locations-group + .locations-group {
+  margin-top: 48px;
+}
+
+.locations-group__title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 10px;
+  margin: 0 0 18px;
+  font-size: 1.5rem;
+}
+
+.locations-group__count {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
 .locations {
   display: grid;
   grid-template-columns: 1fr;
   gap: 18px;
-  margin-top: 36px;
+}
+
+/* Grupy z 1–2 lokalizacjami nie powinny sztucznie rozciągać kart na całą
+   szerokość siatki przewidzianej na 4 kolumny — karty trzymają swoją
+   naturalną szerokość zamiast rozciągania na całą szerokość rzędu.
+   Selektor z dwiema klasami celowo ma wyższą specyficzność niż reguły
+   ".locations" w media queries poniżej, żeby zawsze wygrywał niezależnie od
+   szerokości ekranu. */
+.locations.locations--compact {
+  grid-template-columns: repeat(auto-fit, minmax(240px, 300px));
+  max-width: 620px;
 }
 
 .location-card {
@@ -542,7 +990,6 @@ img {
   background: var(--surface);
   border: 1px solid var(--line-soft);
   border-radius: 4px;
-  text-decoration: none;
   color: var(--ink);
   transition:
     border-color 0.25s ease,
@@ -550,8 +997,11 @@ img {
     transform 0.25s ease;
 }
 
-.location-card:hover,
-.location-card:focus-visible {
+/* Karta nie jest już całościowo linkiem (żeby zmieściła się w niej
+   interaktywna mapa Google) — subtelne uniesienie zostaje jako reakcja na
+   najechanie na kartę, a rzeczywistym elementem klikalnym/focusowalnym
+   jest link "Umów online" niżej. */
+.location-card:hover {
   border-color: var(--line);
   box-shadow: var(--shadow);
   transform: translateY(-2px);
@@ -569,17 +1019,38 @@ img {
   font-size: 0.95rem;
 }
 
-.location-card__cta {
+/* Podgląd mapy Google (embed bez klucza API, przez "output=embed") z
+   przykładowym adresem — do podmiany na docelowy adres placówki. */
+.location-card__map {
   margin-top: 12px;
+  overflow: hidden;
+  aspect-ratio: 16 / 10;
+  background: var(--greige-soft);
+  border: 1px solid var(--line-soft);
+  border-radius: 4px;
+}
+
+.location-card__map iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.location-card__cta {
+  display: inline-block;
+  margin-top: 4px;
   font-size: 0.74rem;
   font-weight: 500;
   letter-spacing: 0.18em;
   text-transform: uppercase;
+  text-decoration: none;
   color: var(--muted);
+  transition: color 0.25s ease;
 }
 
-.location-card:hover .location-card__cta,
-.location-card:focus-visible .location-card__cta {
+.location-card__cta:hover,
+.location-card__cta:focus-visible {
   color: var(--ink);
 }
 
@@ -627,11 +1098,38 @@ img {
   color: var(--on-dark-muted);
 }
 
+.site-footer__contact-group {
+  display: grid;
+  gap: 8px;
+}
+
+.site-footer__contact-title {
+  margin: 0;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--on-dark-muted);
+}
+
 .site-footer__contact {
   display: inline-flex;
   flex-wrap: wrap;
-  align-items: center;
+  align-items: flex-start;
   gap: 12px 26px;
+}
+
+.site-footer__contact-item {
+  display: grid;
+  gap: 3px;
+}
+
+.site-footer__contact-label {
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--on-dark-muted);
 }
 
 .site-footer__contact a {
@@ -715,10 +1213,6 @@ img {
 
   .site-footer__inner {
     justify-content: space-between;
-  }
-
-  .site-footer__contact {
-    display: contents;
   }
 }
 
