@@ -161,6 +161,27 @@ h3 {
   padding: 0 clamp(18px, 4vw, 56px) clamp(56px, 8vw, 96px);
 }
 
+.page-groups {
+  padding-bottom: clamp(56px, 8vw, 96px);
+}
+
+.page-group + .page-group {
+  margin-top: clamp(12px, 3vw, 30px);
+}
+
+.group-head {
+  padding: 0 clamp(18px, 4vw, 56px) 18px;
+}
+
+.group-head h2 {
+  font-size: clamp(1.45rem, 2.6vw, 2.3rem);
+}
+
+.page-group .page-grid {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
 .topic-card {
   overflow: hidden;
   background: var(--surface);
@@ -302,6 +323,10 @@ h3 {
   .page-grid,
   .content-grid {
     grid-template-columns: 1fr;
+  }
+
+  .group-head {
+    padding-bottom: 14px;
   }
 
   .detail-hero {

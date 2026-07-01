@@ -1,0 +1,840 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wizytówki — Monika Bazgier | 40 prototypów do druku</title>
+    <meta
+      name="description"
+      content="40 prototypów wizytówek (85 x 55 mm, gotowe do druku): 20 jednostronnych i 20 dwustronnych dla Moniki Bazgier."
+    />
+    <meta name="robots" content="noindex, nofollow" />
+    <link
+      rel="icon"
+      href="../prototype/assets/favicon.svg"
+      type="image/svg+xml"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Jost:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/cards.css" />
+  </head>
+  <body>
+    <svg
+      class="sprite"
+      aria-hidden="true"
+      focusable="false"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <defs>
+        <symbol id="i-phone" viewBox="0 0 24 24">
+          <path
+            d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.13.9.35 1.8.66 2.6a2 2 0 0 1-.45 2.1L8.1 9.9a16 16 0 0 0 6 6l1.5-1.2a2 2 0 0 1 2.1-.45c.83.31 1.7.53 2.6.66A2 2 0 0 1 22 16.9z"
+          />
+        </symbol>
+        <symbol id="i-mail" viewBox="0 0 24 24">
+          <rect x="3" y="5" width="18" height="14" rx="2" />
+          <path d="M3.5 6.5 12 12.5l8.5-6" />
+        </symbol>
+        <symbol id="i-ig" viewBox="0 0 24 24">
+          <rect x="3" y="3" width="18" height="18" rx="5" />
+          <circle cx="12" cy="12" r="4.2" />
+          <circle class="dot" cx="17.2" cy="6.8" r="1" />
+        </symbol>
+        <symbol id="i-web" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="9" />
+          <path d="M3 12h18" />
+          <path
+            d="M12 3c2.6 2.5 4 5.6 4 9s-1.4 6.5-4 9c-2.6-2.5-4-5.6-4-9s1.4-6.5 4-9z"
+          />
+        </symbol>
+      </defs>
+    </svg>
+
+    <header class="app-header">
+      <h1>Wizytówki — 40 prototypów</h1>
+      <p>
+        Monika Bazgier · Lekarz medycyny estetycznej. Format
+        85&nbsp;&times;&nbsp;55&nbsp;mm (trim) ze spadem 3&nbsp;mm i polem
+        bezpiecznym 5&nbsp;mm. Najpierw 20 projektów bez rewersu, a następnie
+        kolejne 20 z rewersem.
+      </p>
+    </header>
+
+    <div class="toolbar">
+      <button type="button" class="btn btn--solid" id="print-all">
+        Drukuj wszystkie
+      </button>
+      <label class="toggle">
+        <input type="checkbox" id="toggle-guides" /> Pokaż spady i pole
+        bezpieczne
+      </label>
+    </div>
+
+    <div class="legend">
+      <span><i class="l-trim"></i> Linia cięcia (trim)</span>
+      <span><i class="l-bleed"></i> Spad 3&nbsp;mm</span>
+      <span><i class="l-safe"></i> Pole bezpieczne 5&nbsp;mm</span>
+    </div>
+
+    <main class="cards">
+      <article class="proto" data-id="01">
+        <div class="proto__bar">
+          <span class="proto__num">01</span
+          ><span class="proto__name">Klasyczny wyśrodkowany</span
+          ><button type="button" class="proto__print" data-print="01">
+            Drukuj
+          </button>
+        </div>
+        <div class="proto__wrap">
+          <div class="card l-center">
+            <span class="mono" aria-hidden="true">MB</span>
+            <div class="stack stack--tight">
+              <h2 class="c-name">Monika Bazgier</h2>
+              <p class="c-title">Lekarz medycyny estetycznej</p>
+            </div>
+            <span class="rule"></span>
+            <div class="contacts">
+              <span class="contact"
+                ><svg class="ico" aria-hidden="true">
+                  <use href="#i-phone" /></svg
+                ><span>+48 600 100 200</span></span
+              >
+              <span class="contact"
+                ><svg class="ico" aria-hidden="true"><use href="#i-mail" /></svg
+                ><span>kontakt@monikabazgier.pl</span></span
+              >
+              <span class="contact"
+                ><svg class="ico" aria-hidden="true"><use href="#i-ig" /></svg
+                ><span>@monikabazgier</span></span
+              >
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="proto" data-id="02">
+        <div class="proto__bar">
+          <span class="proto__num">02</span
+          ><span class="proto__name">Edytorialny do lewej</span
+          ><button type="button" class="proto__print" data-print="02">
+            Drukuj
+          </button>
+        </div>
+        <div class="proto__wrap">
+          <div class="card card--cream l-left">
+            <p class="c-kicker">Medycyna estetyczna</p>
+            <div class="stack stack--tight">
+              <h2 class="c-name">Monika Bazgier</h2>
+              <p class="c-title">Lekarz medycyny estetycznej</p>
+            </div>
+            <span class="rule"></span>
+            <div class="contacts">
+              <span class="contact"
+                ><svg class="ico" aria-hidden="true">
+                  <use href="#i-phone" /></svg
+                ><span>+48 600 100 200</span></span
+              >
+              <span class="contact"
+                ><svg class="ico" aria-hidden="true"><use href="#i-mail" /></svg
+                ><span>kontakt@monikabazgier.pl</span></span
+              >
+              <span class="contact"
+                ><svg class="ico" aria-hidden="true"><use href="#i-web" /></svg
+                ><span>www.monikabazgier.pl</span></span
+              >
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="proto" data-id="03">
+        <div class="proto__bar">
+          <span class="proto__num">03</span
+          ><span class="proto__name">Pionowy panel</span
+          ><button type="button" class="proto__print" data-print="03">
+            Drukuj
+          </button>
+        </div>
+        <div class="proto__wrap">
+          <div class="card card--split">
+            <div class="split__aside">
+              <span class="mono" aria-hidden="true">MB</span>
+              <span class="split__vlabel">Medycyna estetyczna</span>
+            </div>
+            <div class="split__main">
+              <div class="stack stack--tight">
+                <h2 class="c-name">Monika Bazgier</h2>
+                <p class="c-title">Lekarz medycyny estetycznej</p>
+              </div>
+              <span class="rule"></span>
+              <div class="contacts">
+                <span class="contact"
+                  ><svg class="ico" aria-hidden="true">
+                    <use href="#i-phone" /></svg
+                  ><span>+48 600 100 200</span></span
+                >
+                <span class="contact"
+                  ><svg class="ico" aria-hidden="true">
+                    <use href="#i-mail" /></svg
+                  ><span>kontakt@monikabazgier.pl</span></span
+                >
+                <span class="contact"
+                  ><svg class="ico" aria-hidden="true"><use href="#i-ig" /></svg
+                  ><span>@monikabazgier</span></span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="proto" data-id="04">
+        <div class="proto__bar">
+          <span class="proto__num">04</span
+          ><span class="proto__name">Nazwa u góry</span
+          ><button type="button" class="proto__print" data-print="04">
+            Drukuj
+          </button>
+        </div>
+        <div class="proto__wrap">
+          <div class="card l-between l-between--center">
+            <div class="stack stack--tight">
+              <h2 class="c-name">Monika Bazgier</h2>
+              <p class="c-title">Lekarz medycyny estetycznej</p>
+            </div>
+            <div class="l-center" style="gap: 2.4mm">
+              <span class="rule"></span>
+              <div class="contacts contacts--inline">
+                <span class="contact"><span>+48 600 100 200</span></span>
+                <span class="contact"
+                  ><span>kontakt@monikabazgier.pl</span></span
+                >
+                <span class="contact"><span>@monikabazgier</span></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="proto" data-id="05">
+        <div class="proto__bar">
+          <span class="proto__num">05</span
+          ><span class="proto__name">Monogram dominujący</span
+          ><button type="button" class="proto__print" data-print="05">
+            Drukuj
+          </button>
+        </div>
+        <div class="proto__wrap">
+          <div class="card card--greige l-center">
+            <span class="mono mono--xl" aria-hidden="true">MB</span>
+            <div class="stack stack--tight">
+              <h2 class="c-name c-name--sm">Monika Bazgier</h2>
+              <p class="c-title">Lekarz medycyny estetycznej</p>
+            </div>
+            <div class="contacts contacts--inline">
+              <span class="contact"><span>+48 600 100 200</span></span>
+              <span class="contact"><span>kontakt@monikabazgier.pl</span></span>
+              <span class="contact"><span>@monikabazgier</span></span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="proto" data-id="06">
+        <div class="proto__bar">
+          <span class="proto__num">06</span
+          ><span class="proto__name">Narożniki</span
+          ><button type="button" class="proto__print" data-print="06">
+            Drukuj
+          </button>
+        </div>
+        <div class="proto__wrap">
+          <div class="card card--corner">
+            <div class="corner corner--tl">
+              <div class="stack stack--tight">
+                <h2 class="c-name">Monika Bazgier</h2>
+                <p class="c-title">Lekarz medycyny estetycznej</p>
+              </div>
+            </div>
+            <span class="corner corner--tr mono mono--sm" aria-hidden="true"
+              >MB</span
+            >
+            <div class="corner corner--bl">
+              <div class="contacts">
+                <span class="contact"
+                  ><svg class="ico" aria-hidden="true">
+                    <use href="#i-phone" /></svg
+                  ><span>+48 600 100 200</span></span
+                >
+                <span class="contact"
+                  ><svg class="ico" aria-hidden="true">
+                    <use href="#i-mail" /></svg
+                  ><span>kontakt@monikabazgier.pl</span></span
+                >
+              </div>
+            </div>
+            <div class="corner corner--br">
+              <span class="c-kicker">Medycyna estetyczna</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="proto" data-id="07">
+        <div class="proto__bar">
+          <span class="proto__num">07</span
+          ><span class="proto__name">Ramka</span
+          ><button type="button" class="proto__print" data-print="07">
+            Drukuj
+          </button>
+        </div>
+        <div class="proto__wrap">
+          <div class="card card--frame card--cream l-center">
+            <span class="mono" aria-hidden="true">MB</span>
+            <div class="stack stack--tight">
+              <h2 class="c-name">Monika Bazgier</h2>
+              <p class="c-title">Lekarz medycyny estetycznej</p>
+            </div>
+            <span class="rule"></span>
+            <div class="contacts contacts--inline">
+              <span class="contact"><span>+48 600 100 200</span></span>
+              <span class="contact"><span>kontakt@monikabazgier.pl</span></span>
+              <span class="contact"><span>@monikabazgier</span></span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="proto" data-id="08">
+        <div class="proto__bar">
+          <span class="proto__num">08</span
+          ><span class="proto__name">Dolny pasek</span
+          ><button type="button" class="proto__print" data-print="08">
+            Drukuj
+          </button>
+        </div>
+        <div class="proto__wrap">
+          <div class="card card--foot">
+            <div class="card--foot__body">
+              <span class="mono" aria-hidden="true">MB</span>
+              <div class="stack stack--tight">
+                <h2 class="c-name">Monika Bazgier</h2>
+                <p class="c-title">Lekarz medycyny estetycznej</p>
+              </div>
+            </div>
+            <div class="card--foot__bar">
+              <span class="contact"><span>+48 600 100 200</span></span>
+              <span class="contact"><span>kontakt@monikabazgier.pl</span></span>
+              <span class="contact"><span>@monikabazgier</span></span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="proto" data-id="09">
+        <div class="proto__bar">
+          <span class="proto__num">09</span
+          ><span class="proto__name">Pionowa kreska</span
+          ><button type="button" class="proto__print" data-print="09">
+            Drukuj
+          </button>
+        </div>
+        <div class="proto__wrap">
+          <div class="card card--rule-left l-left">
+            <div class="stack">
+              <span class="mono mono--sm" aria-hidden="true">MB</span>
+              <div class="stack stack--tight">
+                <h2 class="c-name">Monika Bazgier</h2>
+                <p class="c-title">Lekarz medycyny estetycznej</p>
+              </div>
+              <div class="contacts">
+                <span class="contact"
+                  ><svg class="ico" aria-hidden="true">
+                    <use href="#i-phone" /></svg
+                  ><span>+48 600 100 200</span></span
+                >
+                <span class="contact"
+                  ><svg class="ico" aria-hidden="true">
+                    <use href="#i-mail" /></svg
+                  ><span>kontakt@monikabazgier.pl</span></span
+                >
+                <span class="contact"
+                  ><svg class="ico" aria-hidden="true"><use href="#i-ig" /></svg
+                  ><span>@monikabazgier</span></span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="proto" data-id="10">
+        <div class="proto__bar">
+          <span class="proto__num">10</span
+          ><span class="proto__name">Tylko typografia</span
+          ><button type="button" class="proto__print" data-print="10">
+            Drukuj
+          </button>
+        </div>
+        <div class="proto__wrap">
+          <div class="card l-left">
+            <div class="stack stack--tight">
+              <h2 class="c-name c-name--lg">Monika Bazgier</h2>
+              <p class="c-title">Lekarz medycyny estetycznej</p>
+            </div>
+            <div class="contacts contacts--inline">
+              <span class="contact"><span>+48 600 100 200</span></span>
+              <span class="contact"><span>kontakt@monikabazgier.pl</span></span>
+              <span class="contact"><span>@monikabazgier</span></span>
+              <span class="contact"><span>www.monikabazgier.pl</span></span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="proto" data-id="11">
+        <div class="proto__bar">
+          <span class="proto__num">11</span
+          ><span class="proto__name">Tło greige</span
+          ><button type="button" class="proto__print" data-print="11">
+            Drukuj
+          </button>
+        </div>
+        <div class="proto__wrap">
+          <div class="card card--greige l-center">
+            <span class="mono" aria-hidden="true">MB</span>
+            <div class="stack stack--tight">
+              <h2 class="c-name">Monika Bazgier</h2>
+              <p class="c-title">Lekarz medycyny estetycznej</p>
+            </div>
+            <span class="rule"></span>
+            <div class="contacts">
+              <span class="contact"
+                ><svg class="ico" aria-hidden="true">
+                  <use href="#i-phone" /></svg
+                ><span>+48 600 100 200</span></span
+              >
+              <span class="contact"
+                ><svg class="ico" aria-hidden="true"><use href="#i-mail" /></svg
+                ><span>kontakt@monikabazgier.pl</span></span
+              >
+              <span class="contact"
+                ><svg class="ico" aria-hidden="true"><use href="#i-ig" /></svg
+                ><span>@monikabazgier</span></span
+              >
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="proto" data-id="12">
+        <div class="proto__bar">
+          <span class="proto__num">12</span
+          ><span class="proto__name">Ciemny elegancki</span
+          ><button type="button" class="proto__print" data-print="12">
+            Drukuj
+          </button>
+        </div>
+        <div class="proto__wrap">
+          <div class="card card--ink l-center">
+            <span class="mono" aria-hidden="true">MB</span>
+            <div class="stack stack--tight">
+              <h2 class="c-name">Monika Bazgier</h2>
+              <p class="c-title">Lekarz medycyny estetycznej</p>
+            </div>
+            <span class="rule"></span>
+            <div class="contacts">
+              <span class="contact"
+                ><svg class="ico" aria-hidden="true">
+                  <use href="#i-phone" /></svg
+                ><span>+48 600 100 200</span></span
+              >
+              <span class="contact"
+                ><svg class="ico" aria-hidden="true"><use href="#i-mail" /></svg
+                ><span>kontakt@monikabazgier.pl</span></span
+              >
+              <span class="contact"
+                ><svg class="ico" aria-hidden="true"><use href="#i-web" /></svg
+                ><span>www.monikabazgier.pl</span></span
+              >
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="proto" data-id="13">
+        <div class="proto__bar">
+          <span class="proto__num">13</span
+          ><span class="proto__name">Serif + kontakt po prawej</span
+          ><button type="button" class="proto__print" data-print="13">
+            Drukuj
+          </button>
+        </div>
+        <div class="proto__wrap">
+          <div class="card cols">
+            <div class="cols__main">
+              <h2 class="c-name c-name--lg">Monika<br />Bazgier</h2>
+              <p class="c-title">Lekarz medycyny estetycznej</p>
+            </div>
+            <div class="contacts contacts--end contacts--rev">
+              <span class="contact"
+                ><svg class="ico" aria-hidden="true">
+                  <use href="#i-phone" /></svg
+                ><span>+48 600 100 200</span></span
+              >
+              <span class="contact"
+                ><svg class="ico" aria-hidden="true"><use href="#i-mail" /></svg
+                ><span>kontakt@monikabazgier.pl</span></span
+              >
+              <span class="contact"
+                ><svg class="ico" aria-hidden="true"><use href="#i-ig" /></svg
+                ><span>@monikabazgier</span></span
+              >
+              <span class="contact"
+                ><svg class="ico" aria-hidden="true"><use href="#i-web" /></svg
+                ><span>www.monikabazgier.pl</span></span
+              >
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="proto" data-id="14">
+        <div class="proto__bar">
+          <span class="proto__num">14</span
+          ><span class="proto__name">Kontakt w linii</span
+          ><button type="button" class="proto__print" data-print="14">
+            Drukuj
+          </button>
+        </div>
+        <div class="proto__wrap">
+          <div class="card card--cream l-center">
+            <p class="c-kicker">Medycyna estetyczna</p>
+            <div class="stack stack--tight">
+              <h2 class="c-name">Monika Bazgier</h2>
+              <p class="c-title">Lekarz medycyny estetycznej</p>
+            </div>
+            <div class="contacts contacts--inline">
+              <span class="contact"><span>+48 600 100 200</span></span>
+              <span class="contact"><span>kontakt@monikabazgier.pl</span></span>
+              <span class="contact"><span>@monikabazgier</span></span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="proto" data-id="15">
+        <div class="proto__bar">
+          <span class="proto__num">15</span
+          ><span class="proto__name">Etykiety kontaktu</span
+          ><button type="button" class="proto__print" data-print="15">
+            Drukuj
+          </button>
+        </div>
+        <div class="proto__wrap">
+          <div class="card cols">
+            <div class="cols__main">
+              <span class="mono mono--sm" aria-hidden="true">MB</span>
+              <div class="stack stack--tight">
+                <h2 class="c-name">Monika Bazgier</h2>
+                <p class="c-title">Lekarz medycyny estetycznej</p>
+              </div>
+            </div>
+            <div class="contacts contacts--grid">
+              <span class="contact"
+                ><span class="c-label">Telefon</span
+                ><span>+48 600 100 200</span></span
+              >
+              <span class="contact"
+                ><span class="c-label">E-mail</span
+                ><span>kontakt@monikabazgier.pl</span></span
+              >
+              <span class="contact"
+                ><span class="c-label">Instagram</span
+                ><span>@monikabazgier</span></span
+              >
+              <span class="contact"
+                ><span class="c-label">WWW</span
+                ><span>www.monikabazgier.pl</span></span
+              >
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="proto" data-id="16">
+        <div class="proto__bar">
+          <span class="proto__num">16</span
+          ><span class="proto__name">Monogram wypełniony</span
+          ><button type="button" class="proto__print" data-print="16">
+            Drukuj
+          </button>
+        </div>
+        <div class="proto__wrap">
+          <div class="card l-center">
+            <span class="mono mono--fill" aria-hidden="true">MB</span>
+            <div class="stack stack--tight">
+              <h2 class="c-name">Monika Bazgier</h2>
+              <p class="c-title">Lekarz medycyny estetycznej</p>
+            </div>
+            <div class="contacts contacts--inline">
+              <span class="contact"><span>+48 600 100 200</span></span>
+              <span class="contact"><span>kontakt@monikabazgier.pl</span></span>
+              <span class="contact"><span>@monikabazgier</span></span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="proto" data-id="17">
+        <div class="proto__bar">
+          <span class="proto__num">17</span
+          ><span class="proto__name">Górna kreska</span
+          ><button type="button" class="proto__print" data-print="17">
+            Drukuj
+          </button>
+        </div>
+        <div class="proto__wrap">
+          <div class="card card--greige l-between l-between--center">
+            <div class="topline">
+              <span class="c-kicker">Medycyna estetyczna</span>
+            </div>
+            <div class="stack stack--tight">
+              <h2 class="c-name">Monika Bazgier</h2>
+              <p class="c-title">Lekarz medycyny estetycznej</p>
+            </div>
+            <div class="contacts contacts--inline">
+              <span class="contact"><span>+48 600 100 200</span></span>
+              <span class="contact"><span>kontakt@monikabazgier.pl</span></span>
+              <span class="contact"><span>@monikabazgier</span></span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="proto" data-id="18">
+        <div class="proto__bar">
+          <span class="proto__num">18</span
+          ><span class="proto__name">Wyrównanie do prawej</span
+          ><button type="button" class="proto__print" data-print="18">
+            Drukuj
+          </button>
+        </div>
+        <div class="proto__wrap">
+          <div class="card l-right">
+            <span class="mono mono--sm" aria-hidden="true">MB</span>
+            <div class="stack stack--tight" style="align-items: flex-end">
+              <h2 class="c-name">Monika Bazgier</h2>
+              <p class="c-title">Lekarz medycyny estetycznej</p>
+            </div>
+            <div class="contacts contacts--end contacts--rev">
+              <span class="contact"
+                ><svg class="ico" aria-hidden="true">
+                  <use href="#i-phone" /></svg
+                ><span>+48 600 100 200</span></span
+              >
+              <span class="contact"
+                ><svg class="ico" aria-hidden="true"><use href="#i-mail" /></svg
+                ><span>kontakt@monikabazgier.pl</span></span
+              >
+              <span class="contact"
+                ><svg class="ico" aria-hidden="true"><use href="#i-ig" /></svg
+                ><span>@monikabazgier</span></span
+              >
+              <span class="contact"
+                ><svg class="ico" aria-hidden="true"><use href="#i-web" /></svg
+                ><span>www.monikabazgier.pl</span></span
+              >
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="proto" data-id="19">
+        <div class="proto__bar">
+          <span class="proto__num">19</span
+          ><span class="proto__name">Złoty akcent</span
+          ><button type="button" class="proto__print" data-print="19">
+            Drukuj
+          </button>
+        </div>
+        <div class="proto__wrap">
+          <div class="card card--cream l-left">
+            <div class="stack stack--tight">
+              <h2 class="c-name">Monika Bazgier</h2>
+              <span class="rule rule--gold"></span>
+              <p class="c-title">Lekarz medycyny estetycznej</p>
+            </div>
+            <div class="contacts">
+              <span class="contact"
+                ><svg class="ico" aria-hidden="true"><use href="#i-mail" /></svg
+                ><span>kontakt@monikabazgier.pl</span></span
+              >
+              <span class="contact"
+                ><svg class="ico" aria-hidden="true"><use href="#i-ig" /></svg
+                ><span>@monikabazgier</span></span
+              >
+              <span class="contact"
+                ><svg class="ico" aria-hidden="true"><use href="#i-web" /></svg
+                ><span>www.monikabazgier.pl</span></span
+              >
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="proto" data-id="20">
+        <div class="proto__bar">
+          <span class="proto__num">20</span
+          ><span class="proto__name">Znak wodny</span
+          ><button type="button" class="proto__print" data-print="20">
+            Drukuj
+          </button>
+        </div>
+        <div class="proto__wrap">
+          <div class="card">
+            <span class="watermark" aria-hidden="true">MB</span>
+            <div class="card__fg">
+              <div class="stack stack--tight">
+                <h2 class="c-name">Monika Bazgier</h2>
+                <p class="c-title">Lekarz medycyny estetycznej</p>
+              </div>
+              <span class="rule"></span>
+              <div class="contacts contacts--inline">
+                <span class="contact"><span>+48 600 100 200</span></span>
+                <span class="contact"
+                  ><span>kontakt@monikabazgier.pl</span></span
+                >
+                <span class="contact"><span>@monikabazgier</span></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-foot">
+      Prototypy do druku · dane kontaktowe są przykładowe (do podmiany przed
+      produkcją).
+    </footer>
+
+    <script>
+      (function () {
+        var body = document.body;
+      var cardsRoot = document.querySelector(".cards");
+
+      function buildBackCard(frontCard) {
+        var back = document.createElement("div");
+        var ink = frontCard.classList.contains("card--ink");
+        back.className = "card card--back l-center" + (ink ? " card--ink" : "");
+          back.innerHTML =
+            '<span class="mono mono--sm" aria-hidden="true">MB</span>' +
+            '<div class="stack stack--tight"><h2 class="c-name">Monika Bazgier</h2><p class="c-title">Lekarz medycyny estetycznej</p></div>' +
+            '<span class="rule"></span>' +
+            '<div class="contacts contacts--inline">' +
+            '<span class="contact"><span>www.monikabazgier.pl</span></span>' +
+            '<span class="contact"><span>@monikabazgier</span></span>' +
+            '<span class="contact"><span>kontakt@monikabazgier.pl</span></span>' +
+            "</div>";
+          return back;
+        }
+
+        function withVariantName(nameEl, variant) {
+          if (!nameEl) return;
+          var base = nameEl.getAttribute("data-base-name");
+          if (!base) {
+            base = nameEl.textContent
+              .trim()
+              .replace(/\s·\s(jednostronna|dwustronna)$/i, "");
+            nameEl.setAttribute("data-base-name", base);
+          }
+          nameEl.textContent = base + " · " + variant;
+        }
+
+        if (cardsRoot && cardsRoot.dataset.expanded !== "true") {
+          var singleProtos = Array.from(cardsRoot.querySelectorAll(".proto"));
+          cardsRoot.dataset.expanded = "true";
+
+          singleProtos.forEach(function (proto, index) {
+            var id = String(index + 1).padStart(2, "0");
+            proto.setAttribute("data-id", id);
+            var numEl = proto.querySelector(".proto__num");
+            if (numEl) numEl.textContent = id;
+            var btnEl = proto.querySelector(".proto__print");
+            if (btnEl) btnEl.setAttribute("data-print", id);
+            withVariantName(proto.querySelector(".proto__name"), "jednostronna");
+          });
+
+          singleProtos.forEach(function (proto, index) {
+            var clone = proto.cloneNode(true);
+            var id = String(singleProtos.length + index + 1).padStart(2, "0");
+            clone.setAttribute("data-id", id);
+
+            var numEl = clone.querySelector(".proto__num");
+            if (numEl) numEl.textContent = id;
+            var btnEl = clone.querySelector(".proto__print");
+            if (btnEl) btnEl.setAttribute("data-print", id);
+            withVariantName(clone.querySelector(".proto__name"), "dwustronna");
+
+            var wrap = clone.querySelector(".proto__wrap");
+            var frontCard = wrap ? wrap.querySelector(".card") : null;
+            if (wrap && frontCard && !wrap.querySelector(".card--back")) {
+              wrap.appendChild(buildBackCard(frontCard));
+            }
+
+            cardsRoot.appendChild(clone);
+          });
+        }
+
+        var guides = document.getElementById("toggle-guides");
+        if (guides) {
+          guides.addEventListener("change", function () {
+            body.classList.toggle("guides", guides.checked);
+          });
+        }
+
+        var printAll = document.getElementById("print-all");
+        if (printAll) {
+          printAll.addEventListener("click", function () {
+            body.classList.remove("print-one");
+            document
+              .querySelectorAll(".proto.is-print-target")
+              .forEach(function (item) {
+                item.classList.remove("is-print-target");
+              });
+            window.print();
+          });
+        }
+
+        document.querySelectorAll("[data-print]").forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            var id = btn.getAttribute("data-print");
+            var target = document.querySelector('.proto[data-id="' + id + '"]');
+            if (!target) return;
+            document
+              .querySelectorAll(".proto.is-print-target")
+              .forEach(function (item) {
+                item.classList.remove("is-print-target");
+              });
+            target.classList.add("is-print-target");
+            body.classList.add("print-one");
+            window.print();
+          });
+        });
+
+        window.addEventListener("afterprint", function () {
+          body.classList.remove("print-one");
+          document
+            .querySelectorAll(".proto.is-print-target")
+            .forEach(function (item) {
+              item.classList.remove("is-print-target");
+            });
+        });
+      })();
+    </script>
+  </body>
+</html>
