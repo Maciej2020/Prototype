@@ -254,6 +254,46 @@ body {
   color: var(--on-dark-muted);
 }
 
+.card--back__head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.6mm;
+  text-align: center;
+}
+
+.qr-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2.2mm;
+  width: 100%;
+}
+
+.qr-grid--single {
+  grid-template-columns: 1fr;
+  justify-items: center;
+}
+
+.qr-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1mm;
+  text-align: center;
+}
+
+.qr-item__img {
+  width: 18mm;
+  height: 18mm;
+  border: 0.25mm solid var(--line);
+  border-radius: 0.6mm;
+  background: #fff;
+}
+
+.card--ink .qr-item__img {
+  border-color: var(--on-dark-line);
+}
+
 /* Podgląd linii druku (przełącznik „Pokaż spady") */
 body.guides .proto__wrap {
   padding: var(--bleed);
@@ -478,6 +518,8 @@ body.guides .card::after {
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--muted);
+  margin-right: 1.2mm;
+  white-space: nowrap;
 }
 
 /* =========================================================

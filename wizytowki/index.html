@@ -727,20 +727,48 @@
         var body = document.body;
       var cardsRoot = document.querySelector(".cards");
 
-      function buildBackCard(frontCard) {
+      function qrUrl(url) {
+        return "https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=" + encodeURIComponent(url);
+      }
+
+      function qrItem(url, label) {
+        return (
+          '<div class="qr-item">' +
+          '<img class="qr-item__img" loading="lazy" decoding="async" src="' + qrUrl(url) + '" alt="Kod QR: ' + label + '">' +
+          '<span class="c-label">' + label + "</span>" +
+          "</div>"
+        );
+      }
+
+      function buildBackCard(frontCard, qrMode) {
         var back = document.createElement("div");
         var ink = frontCard.classList.contains("card--ink");
         back.className = "card card--back l-center" + (ink ? " card--ink" : "");
-          back.innerHTML =
-            '<span class="mono mono--sm" aria-hidden="true">MB</span>' +
-            '<div class="stack stack--tight"><h2 class="c-name">Monika Bazgier</h2><p class="c-title">Lekarz medycyny estetycznej</p></div>' +
-            '<span class="rule"></span>' +
-            '<div class="contacts contacts--inline">' +
-            '<span class="contact"><span>www.monikabazgier.pl</span></span>' +
-            '<span class="contact"><span>@monikabazgier</span></span>' +
-            '<span class="contact"><span>kontakt@monikabazgier.pl</span></span>' +
-            "</div>";
-          return back;
+        var ig = "https://instagram.com/monikabazgier";
+        var web = "https://www.monikabazgier.pl";
+        var qrHtml = "";
+        var gridClass = "qr-grid qr-grid--single";
+
+        if (qrMode === "ig") {
+          qrHtml = qrItem(ig, "Instagram");
+        } else if (qrMode === "web") {
+          qrHtml = qrItem(web, "Strona WWW");
+        } else {
+          gridClass = "qr-grid";
+          qrHtml = qrItem(ig, "Instagram") + qrItem(web, "Strona WWW");
+        }
+
+        back.innerHTML =
+          '<div class="card--back__head">' +
+          '<span class="mono mono--sm" aria-hidden="true">MB</span>' +
+          '<p class="c-title">Zeskanuj kod QR</p>' +
+          "</div>" +
+          '<div class="' + gridClass + '">' + qrHtml + "</div>" +
+          '<div class="contacts contacts--inline">' +
+          '<span class="contact"><span>@monikabazgier</span></span>' +
+          '<span class="contact"><span>www.monikabazgier.pl</span></span>' +
+          "</div>";
+        return back;
         }
 
         function withVariantName(nameEl, variant) {
@@ -755,11 +783,45 @@
           nameEl.textContent = base + " · " + variant;
         }
 
+        function removePhoneContacts(scope) {
+          if (!scope) return;
+          scope.querySelectorAll(".contact").forEach(function (contact) {
+            var txt = contact.textContent.replace(/\s+/g, " ").trim().toLowerCase();
+            if (txt.indexOf("+48 600 100 200") !== -1 || txt.indexOf("telefon") !== -1) {
+              contact.remove();
+            }
+          });
+        }
+
+        function addLegend(contact, label) {
+          if (!contact || contact.querySelector(".c-label")) return;
+          var tag = document.createElement("span");
+          tag.className = "c-label";
+          tag.textContent = label;
+          contact.insertBefore(tag, contact.firstChild);
+        }
+
+        function addLegendsForSome(protos) {
+          if (!protos || !protos.length) return;
+          var targetIds = new Set(["03", "07", "11", "15", "23", "27", "31", "35"]);
+          protos.forEach(function (proto) {
+            var id = proto.getAttribute("data-id");
+            if (!targetIds.has(id)) return;
+            var contacts = Array.from(proto.querySelectorAll(".contact"));
+            contacts.forEach(function (contact) {
+              var txt = contact.textContent.replace(/\s+/g, " ").trim().toLowerCase();
+              if (txt.indexOf("kontakt@monikabazgier.pl") !== -1) addLegend(contact, "E-mail");
+              if (txt.indexOf("@monikabazgier") !== -1) addLegend(contact, "Instagram");
+            });
+          });
+        }
+
         if (cardsRoot && cardsRoot.dataset.expanded !== "true") {
           var singleProtos = Array.from(cardsRoot.querySelectorAll(".proto"));
           cardsRoot.dataset.expanded = "true";
 
           singleProtos.forEach(function (proto, index) {
+            removePhoneContacts(proto);
             var id = String(index + 1).padStart(2, "0");
             proto.setAttribute("data-id", id);
             var numEl = proto.querySelector(".proto__num");
@@ -773,6 +835,7 @@
             var clone = proto.cloneNode(true);
             var id = String(singleProtos.length + index + 1).padStart(2, "0");
             clone.setAttribute("data-id", id);
+            var qrMode = ["ig", "web", "both"][index % 3];
 
             var numEl = clone.querySelector(".proto__num");
             if (numEl) numEl.textContent = id;
@@ -783,11 +846,13 @@
             var wrap = clone.querySelector(".proto__wrap");
             var frontCard = wrap ? wrap.querySelector(".card") : null;
             if (wrap && frontCard && !wrap.querySelector(".card--back")) {
-              wrap.appendChild(buildBackCard(frontCard));
+              wrap.appendChild(buildBackCard(frontCard, qrMode));
             }
 
             cardsRoot.appendChild(clone);
           });
+
+          addLegendsForSome(Array.from(cardsRoot.querySelectorAll(".proto")));
         }
 
         var guides = document.getElementById("toggle-guides");
