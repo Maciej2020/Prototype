@@ -60,6 +60,7 @@
 
     initPrefetch();
     initMapFacades();
+    initBookingDeepLinks();
     initCertsCarousel();
   }
 
@@ -379,6 +380,78 @@
         loadMap(btn);
       });
     }
+  }
+
+  // Otwieranie natywnych aplikacji rezerwacji (Booksy, ZnanyLekarz) na
+  // urządzeniach mobilnych. Adresy https są już powiązane z aplikacjami przez
+  // App Links (Android) i Universal Links (iOS) — dane z plików assetlinks.json
+  // / apple-app-site-association obu serwisów. Aby powiązanie zadziałało:
+  //  - na Androidzie budujemy adres intent:// z nazwą pakietu aplikacji oraz
+  //    awaryjnym adresem (S.browser_fallback_url). Dzięki temu aplikacja otwiera
+  //    się nawet gdy weryfikacja App Links jest wyłączona, a gdy aplikacji nie
+  //    ma — przeglądarka otwiera zwykły adres https;
+  //  - na iOS wymuszamy nawigację na najwyższym poziomie zamiast target="_blank"
+  //    (Universal Links nie uruchamiają się z linków otwieranych w nowej karcie);
+  //    jeśli aplikacja nie jest zainstalowana, otwiera się Safari.
+  // Na desktopie nie zmieniamy nic — link otwiera się w nowej karcie.
+  function initBookingDeepLinks() {
+    var ua = navigator.userAgent || "";
+    var isAndroid = /Android/i.test(ua);
+    // iPadOS 13+ potrafi przedstawiać się jako "Macintosh" — wykrywamy też dotyk.
+    var isIOS =
+      /iPhone|iPad|iPod/i.test(ua) ||
+      (/Macintosh/i.test(ua) && "ontouchend" in document);
+    if (!isAndroid && !isIOS) return;
+
+    // Host -> nazwa pakietu aplikacji na Androidzie (źródło: assetlinks.json).
+    var androidPackages = {
+      "booksy.com": "net.booksy.customer",
+      "www.booksy.com": "net.booksy.customer",
+      "znanylekarz.pl": "pl.znanylekarz",
+      "www.znanylekarz.pl": "pl.znanylekarz",
+    };
+
+    var buildIntentUrl = function (url, pkg) {
+      // intent://HOST/PATH?QUERY#Intent;scheme=https;package=PKG;
+      //   S.browser_fallback_url=...;end
+      // Fragment (#...) pomijamy w danych intencji (nie służy do dopasowania
+      // App Links), ale pełny adres zachowujemy jako awaryjny dla przeglądarki.
+      var hostAndPath = url.host + url.pathname + url.search;
+      return (
+        "intent://" +
+        hostAndPath +
+        "#Intent;scheme=https;package=" +
+        pkg +
+        ";S.browser_fallback_url=" +
+        encodeURIComponent(url.href) +
+        ";end"
+      );
+    };
+
+    document.addEventListener("click", function (event) {
+      if (event.defaultPrevented || (event.button && event.button !== 0)) {
+        return;
+      }
+      var link = event.target.closest && event.target.closest("a[href]");
+      if (!link) return;
+      var url;
+      try {
+        url = new URL(link.href);
+      } catch (e) {
+        return;
+      }
+      if (url.protocol !== "https:") return;
+      var pkg = androidPackages[url.host];
+      if (!pkg) return; // link inny niż Booksy/ZnanyLekarz — nie ruszamy
+
+      event.preventDefault();
+      if (isAndroid) {
+        window.location.href = buildIntentUrl(url, pkg);
+      } else {
+        // iOS: nawigacja na najwyższym poziomie uruchamia Universal Links.
+        window.location.href = url.href;
+      }
+    });
   }
 
   // Prefetch stron tego samego pochodzenia po najechaniu/dotknięciu linku
