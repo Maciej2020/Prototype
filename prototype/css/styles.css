@@ -84,8 +84,7 @@ img {
 }
 
 .band--greige .kicker,
-.band--greige .lead,
-.band--greige .contact__label {
+.band--greige .lead {
   color: var(--ink);
 }
 
@@ -157,18 +156,6 @@ img {
   background: var(--ink);
 }
 
-.btn--solid {
-  color: var(--cream);
-  background: var(--ink);
-  border-color: var(--ink);
-}
-
-.btn--solid:hover,
-.btn--solid:focus-visible {
-  color: var(--ink);
-  background: transparent;
-}
-
 /* ---------- Skip link ---------- */
 .skip-link {
   position: fixed;
@@ -215,6 +202,17 @@ img {
   height: 46px;
   flex-basis: 46px;
   font-size: 1.18rem;
+}
+
+/* Logo SVG w kółku brand__mark (header/footer) i hero__mark (hero na index).
+   Obraz zajmuje 74% szerokości kółka, dzięki czemu okrągła ramka jest wciąż
+   widoczna jako subtelne obramowanie loga. */
+.brand__mark-img {
+  display: block;
+  width: 74%;
+  height: auto;
+  max-height: 74%;
+  object-fit: contain;
 }
 
 .brand__lockup {
@@ -440,7 +438,7 @@ img {
   border-radius: 4px;
 }
 
-.offer h3 {
+.offer h2 {
   font-family: var(--sans);
   font-size: 1.18rem;
   font-weight: 500;
@@ -901,43 +899,6 @@ img {
   }
 }
 
-/* ---------- Kontakt (pozycje ułożone poziomo, w rząd) ---------- */
-.contact {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 26px 44px;
-  max-width: 900px;
-}
-
-.contact--center {
-  margin-inline: auto;
-  justify-content: center;
-}
-
-.contact__item {
-  display: grid;
-  gap: 8px;
-}
-
-.contact__label {
-  margin: 0;
-  font-size: 0.7rem;
-  font-weight: 500;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-.contact a {
-  font-size: 1.18rem;
-  color: var(--ink);
-  text-decoration: none;
-}
-
-.contact a:hover {
-  text-decoration: underline;
-}
-
 /* ---------- Placówki (lokalizacje), pogrupowane wg miasta ---------- */
 .locations-groups {
   margin-top: 36px;
@@ -971,17 +932,6 @@ img {
   gap: 18px;
 }
 
-/* Grupy z 1–2 lokalizacjami nie powinny sztucznie rozciągać kart na całą
-   szerokość siatki przewidzianej na 4 kolumny — karty trzymają swoją
-   naturalną szerokość zamiast rozciągania na całą szerokość rzędu.
-   Selektor z dwiema klasami celowo ma wyższą specyficzność niż reguły
-   ".locations" w media queries poniżej, żeby zawsze wygrywał niezależnie od
-   szerokości ekranu. */
-.locations.locations--compact {
-  grid-template-columns: repeat(auto-fit, minmax(240px, 300px));
-  max-width: 620px;
-}
-
 .location-card {
   display: flex;
   flex-direction: column;
@@ -989,7 +939,7 @@ img {
   padding: 24px 24px;
   background: var(--surface);
   border: 1px solid var(--line-soft);
-  border-radius: 4px;
+  border-radius: 16px;
   color: var(--ink);
   transition:
     border-color 0.25s ease,
@@ -1007,16 +957,47 @@ img {
   transform: translateY(-2px);
 }
 
+/* Nagłówek karty (nazwa + ewentualna druga linia z pełną nazwą placówki)
+   ma stałą, przewidywalną wysokość niezależnie od długości tekstu, dzięki
+   czemu mapa i przycisk zaczynają się w tym samym miejscu we wszystkich
+   kartach w wierszu. */
+.location-card__head {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-height: 3.7em;
+}
+
 .location-card__name {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
   font-family: var(--serif);
   font-size: 1.4rem;
   font-weight: 500;
-  line-height: 1.1;
+  line-height: 1.15;
+}
+
+.location-card__sub {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 0.76rem;
+  line-height: 1.35;
 }
 
 .location-card__addr {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 2.6em;
   color: var(--muted);
   font-size: 0.95rem;
+  line-height: 1.3;
 }
 
 /* Podgląd mapy Google (embed bez klucza API, przez "output=embed") z
@@ -1027,7 +1008,7 @@ img {
   aspect-ratio: 16 / 10;
   background: var(--greige-soft);
   border: 1px solid var(--line-soft);
-  border-radius: 4px;
+  border-radius: 12px;
 }
 
 .location-card__map iframe {
@@ -1037,21 +1018,161 @@ img {
   border: 0;
 }
 
-.location-card__cta {
-  display: inline-block;
-  margin-top: 4px;
-  font-size: 0.74rem;
+/* Fasada mapy: lekki placeholder wyświetlany zamiast osadzonej mapy Google.
+   Dopiero kliknięcie/aktywacja podmienia go na właściwy <iframe> (patrz
+   app.js) — dzięki temu strona z 10 lokalizacjami nie ładuje na start
+   dziesięciu ciężkich map, co znacząco skraca czas ładowania (zwłaszcza na
+   urządzeniach mobilnych). Adres placówki jest widoczny nad mapą niezależnie. */
+.location-card__map-facade {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  height: 100%;
+  padding: 12px;
+  font-family: var(--sans);
+  font-size: 0.72rem;
   font-weight: 500;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  text-decoration: none;
   color: var(--muted);
-  transition: color 0.25s ease;
+  background: var(--greige-soft);
+  border: 0;
+  cursor: pointer;
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease;
 }
 
-.location-card__cta:hover,
-.location-card__cta:focus-visible {
+.location-card__map-facade:hover,
+.location-card__map-facade:focus-visible {
   color: var(--ink);
+  background: var(--greige);
+}
+
+.location-card__map-pin {
+  color: var(--muted);
+  transition:
+    color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.location-card__map-facade:hover .location-card__map-pin,
+.location-card__map-facade:focus-visible .location-card__map-pin {
+  color: var(--ink);
+  transform: translateY(-2px);
+}
+
+/* Stopka karty (przycisk + ewentualna notatka) jest zawsze dosunięta do
+   dołu karty (margin-top: auto), więc przyciski "Umów online" siedzą na
+   wspólnej linii we wszystkich kartach w rzędzie, niezależnie od długości
+   nazwy czy adresu nad nimi. */
+.location-card__footer {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: auto;
+  padding-top: 14px;
+}
+
+/* Kafelki z rezerwacją dostępną przez dwie platformy naraz (Booksy i
+   ZnanyLekarz) dostają zamiast dwóch przycisków jeden wspólny blok:
+   podpis "Umów wizytę przez" i pod nim para przycisków z prawdziwym logo
+   każdej platformy (własne kolory marki, więc bez inwersji na hover —
+   zamiast tego delikatne podświetlenie tła). */
+.location-card__book-label {
+  margin: 0;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--muted);
+}
+
+.location-card__platforms {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 2px;
+}
+
+/* Kafelki z rezerwacją tylko przez jedną platformę dostają ten sam blok
+   co kafelki dwuplatformowe (podpis + logo), ale w jednym egzemplarzu —
+   szerokość przycisku ograniczona (zamiast rozciągania na flex-grow),
+   żeby nie zajmował całej szerokości karty i zachował te same proporcje
+   co przyciski w parach. Ograniczenie nakładamy na sam przycisk, a nie
+   na kontener, żeby kontener mógł normalnie rozciągnąć się na pełną
+   szerokość karty (tak jak w wariancie dwuplatformowym) i wyśrodkować
+   pojedynczy przycisk przez justify-content: center. */
+.location-card__platforms--single .location-card__platform {
+  flex: 0 1 148px;
+  max-width: 148px;
+}
+
+.location-card__platform {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1 1 0;
+  min-width: 0;
+  height: 46px;
+  padding: 8px 8px;
+  background: var(--surface);
+  border: 1px solid var(--ink);
+  border-radius: 10px;
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.location-card__platform:hover,
+.location-card__platform:focus-visible {
+  background: var(--cream);
+  border-color: var(--ink);
+  transform: translateY(-1px);
+}
+
+/* Stała wysokość (nie max-height:100% zależne od zmiennej szerokości
+   kontenera) — dzięki temu logo Booksy i ZnanyLekarz mają dokładnie ten
+   sam rozmiar we wszystkich kafelkach, niezależnie od tego, czy przycisk
+   jest pojedynczy czy w parze. Szerokość dopasowuje się proporcjonalnie
+   do proporcji danego logo (Booksy jest smuklejsze niż ZnanyLekarz). */
+.location-card__platform-logo {
+  display: block;
+  width: auto;
+  height: 16px;
+  max-width: 100%;
+}
+
+/* Zbiorcze informacje o rezerwacji przez ZnanyLekarz — zamiast powtarzać
+   te same uwagi w kafelkach, wspólna notka (lub dwie) pod całą siatką
+   lokalizacji (pod sekcją "Poza Krakowem"), oddzielona jedną linią. */
+.locations-notes {
+  max-width: 640px;
+  margin: 32px auto 0;
+  padding-top: 20px;
+  border-top: 1px solid var(--line-soft);
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.55;
+  text-align: center;
+}
+
+.locations-notes .locations-note {
+  margin: 0;
+}
+
+.locations-notes .locations-note + .locations-note {
+  margin-top: 10px;
+}
+
+.locations-note strong {
+  color: var(--ink);
+  font-weight: 500;
 }
 
 @media (min-width: 560px) {

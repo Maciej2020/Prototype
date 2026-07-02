@@ -45,10 +45,14 @@
     window.addEventListener("scroll", onScroll, { passive: true });
   }
 
-  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var reduceMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  ).matches;
 
   /* Reveal on scroll */
-  var revealEls = Array.prototype.slice.call(doc.querySelectorAll("[data-reveal]"));
+  var revealEls = Array.prototype.slice.call(
+    doc.querySelectorAll("[data-reveal]"),
+  );
   if (revealEls.length) {
     if (reduceMotion || !("IntersectionObserver" in window)) {
       revealEls.forEach(function (el) {
@@ -64,7 +68,7 @@
             }
           });
         },
-        { threshold: 0.15 }
+        { threshold: 0.15 },
       );
       revealEls.forEach(function (el) {
         io.observe(el);
@@ -73,7 +77,9 @@
   }
 
   /* Active nav link via section observer */
-  var navLinks = Array.prototype.slice.call(doc.querySelectorAll("[data-navlink]"));
+  var navLinks = Array.prototype.slice.call(
+    doc.querySelectorAll("[data-navlink]"),
+  );
   var sections = navLinks
     .map(function (l) {
       var id = (l.getAttribute("href") || "").replace("#", "");
@@ -96,7 +102,7 @@
           });
         });
       },
-      { rootMargin: "-45% 0px -50% 0px" }
+      { rootMargin: "-45% 0px -50% 0px" },
     );
     sections.forEach(function (s) {
       spy.observe(s);
@@ -133,7 +139,8 @@
       if (!val) {
         ok = setError(contact, "Podaj e-mail lub telefon.") && ok;
       } else if (!isEmail && !isPhone) {
-        ok = setError(contact, "Podaj poprawny e-mail lub numer telefonu.") && ok;
+        ok =
+          setError(contact, "Podaj poprawny e-mail lub numer telefonu.") && ok;
       } else {
         setError(contact, "");
       }
@@ -148,7 +155,8 @@
 
       if (status) {
         status.setAttribute("data-state", "ok");
-        status.textContent = "Dziękuję! Zgłoszenie zostało przyjęte — odezwę się wkrótce.";
+        status.textContent =
+          "Dziękuję! Zgłoszenie zostało przyjęte — odezwę się wkrótce.";
       }
       form.reset();
     });

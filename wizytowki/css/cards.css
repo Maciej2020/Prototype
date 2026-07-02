@@ -446,6 +446,32 @@ body.guides .card::after {
   border-color: var(--on-dark-line);
 }
 
+/* Logo SVG w kółku monogramu — obraz wypełnia większość kółka, ale zostawia
+   subtelny margines wewnętrzny, żeby okrągła ramka mono była nadal widoczna
+   jako element dekoracyjny wokół loga. */
+.mono__img {
+  display: block;
+  width: 76%;
+  height: auto;
+  max-height: 76%;
+  object-fit: contain;
+}
+
+/* Znak wodny — pełny logotyp jako subtelny element dekoracyjny w tle karty. */
+.watermark__img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60%;
+  height: auto;
+  opacity: 0.08;
+  pointer-events: none;
+}
+.card--ink .watermark__img {
+  opacity: 0.12;
+}
+
 /* Ikony kontaktu */
 .ico {
   width: 3.4mm;

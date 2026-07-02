@@ -11,10 +11,24 @@
     <meta name="robots" content="index,follow" />
     <meta name="theme-color" content="#f5f3ee" />
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+    <link rel="canonical" href="https://maciej2020.github.io/Prototype/prototype/o-mnie.html" />
     <meta property="og:type" content="profile" />
+    <meta property="og:url" content="https://maciej2020.github.io/Prototype/prototype/o-mnie.html" />
     <meta property="og:title" content="O mnie | Monika Bazgier" />
     <meta property="og:site_name" content="Monika Bazgier — medycyna estetyczna" />
     <meta property="og:locale" content="pl_PL" />
+    <meta
+      property="og:description"
+      content="Lekarz medycyny estetycznej — podejście oparte na kwalifikacji, bezpieczeństwie i naturalnym efekcie."
+    />
+    <meta property="og:image" content="https://maciej2020.github.io/Prototype/prototype/assets/about-photo.JPG" />
+    <meta property="og:image:alt" content="Monika Bazgier — lekarz medycyny estetycznej" />
+    <meta property="og:image:width" content="1536" />
+    <meta property="og:image:height" content="2048" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="O mnie | Monika Bazgier" />
+    <meta name="twitter:description" content="Lekarz medycyny estetycznej — podejście oparte na kwalifikacji, bezpieczeństwie i naturalnym efekcie." />
+    <meta name="twitter:image" content="https://maciej2020.github.io/Prototype/prototype/assets/about-photo.JPG" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -38,6 +52,26 @@
         ]
       }
     </script>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Physician",
+        "@id": "https://maciej2020.github.io/Prototype/prototype/#physician",
+        "name": "Monika Bazgier",
+        "description": "Lekarz medycyny estetycznej — indywidualne podejście, kwalifikacja i naturalny efekt.",
+        "url": "https://maciej2020.github.io/Prototype/prototype/o-mnie.html",
+        "image": "https://maciej2020.github.io/Prototype/prototype/assets/about-photo.JPG",
+        "knowsAbout": [
+          "Medycyna estetyczna",
+          "Toksyna botulinowa",
+          "Stymulatory tkankowe",
+          "Wypełniacze i wolumetria",
+          "Zabiegi na usta",
+          "Zabiegi autologiczne"
+        ]
+      }
+    </script>
   </head>
   <body>
     <a class="skip-link" href="#main">Przejdź do treści</a>
@@ -54,7 +88,7 @@
 
     <header class="site-header" data-header>
       <a class="brand" href="index.html" aria-label="Monika Bazgier — strona główna">
-        <span class="brand__mark" aria-hidden="true">MB</span>
+        <span class="brand__mark" aria-hidden="true"><img class="brand__mark-img" src="assets/logo_3.svg" alt="" width="759" height="513" decoding="async" /></span>
         <span class="brand__lockup">
           <span class="brand__name">Monika Bazgier</span>
           <span class="brand__meta">Medycyna estetyczna</span>
@@ -93,6 +127,8 @@
               alt="Monika Bazgier — lekarz medycyny estetycznej"
               width="1536"
               height="2048"
+              decoding="async"
+              fetchpriority="high"
             />
           </div>
           <div class="split__body">
@@ -106,7 +142,7 @@
             </p>
             <p>
               W pracy stawiam na spokojną rozmowę i realne planowanie. Nie
-              namawiam na zabiegi „na zapas" — wspólnie ustalamy, co naprawdę ma
+              namawiam na zabiegi „na zapas” — wspólnie ustalamy, co naprawdę ma
               sens i w jakiej kolejności.
             </p>
             <p>
@@ -174,7 +210,7 @@
                           alt="Skan certyfikatu IADE, 2026"
                           width="900"
                           height="637"
-                          loading="lazy"
+                          loading="lazy" decoding="async"
                         />
                         <figcaption class="certs-carousel__cap">
                           <span class="certs-carousel__name">Certyfikat IADE 2026</span>
@@ -197,7 +233,7 @@
                           alt="Skan certyfikatu szkolenia Karisma"
                           width="900"
                           height="636"
-                          loading="lazy"
+                          loading="lazy" decoding="async"
                         />
                         <figcaption class="certs-carousel__cap">
                           <span class="certs-carousel__name">Certyfikat Karisma</span>
@@ -220,7 +256,7 @@
                           alt="Skan certyfikatu szkolenia Linerase"
                           width="900"
                           height="636"
-                          loading="lazy"
+                          loading="lazy" decoding="async"
                         />
                         <figcaption class="certs-carousel__cap">
                           <span class="certs-carousel__name">Certyfikat Linerase</span>
@@ -243,7 +279,7 @@
                           alt="Skan certyfikatu szkolenia z zabiegów na usta Neauvia"
                           width="900"
                           height="636"
-                          loading="lazy"
+                          loading="lazy" decoding="async"
                         />
                         <figcaption class="certs-carousel__cap">
                           <span class="certs-carousel__name">Szkolenie: zabiegi na usta Neauvia</span>
@@ -295,7 +331,7 @@
             >
               ‹
             </button>
-            <img class="cert-modal__img" data-cert-modal-img src="" alt="" />
+            <img class="cert-modal__img" data-cert-modal-img src="" alt="" decoding="async" />
             <button
               type="button"
               class="cert-modal__nav cert-modal__nav--next"
@@ -318,7 +354,7 @@
     <footer class="site-footer">
       <div class="site-footer__inner">
         <div class="site-footer__brand">
-          <span class="brand__mark brand__mark--sm" aria-hidden="true">MB</span>
+          <span class="brand__mark brand__mark--sm" aria-hidden="true"><img class="brand__mark-img" src="assets/logo_1.svg" alt="" width="759" height="513" decoding="async" /></span>
           <span class="brand__lockup">
             <span class="brand__name">Monika Bazgier</span>
             <span class="brand__meta">Medycyna estetyczna</span>
@@ -334,7 +370,7 @@
             </div>
             <div class="site-footer__contact-item">
               <span class="site-footer__contact-label">Instagram</span>
-              <a href="https://instagram.com/" rel="noopener" target="_blank"
+              <a href="https://www.instagram.com/monikabazgier/" rel="noopener" target="_blank"
                 >@monikabazgier</a
               >
             </div>

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://maciej2020.github.io/Prototype/prototype/sitemap.xml

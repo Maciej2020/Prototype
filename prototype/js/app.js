@@ -59,6 +59,7 @@
     });
 
     initPrefetch();
+    initMapFacades();
     initCertsCarousel();
   }
 
@@ -322,6 +323,62 @@
     }
 
     splide.mount();
+  }
+
+  // Fasady map Google: osadzona mapa to ciężki zasób (skrypty + kafelki), a
+  // strona lokalizacji ma ich 10. Zamiast ładować wszystkie naraz na starcie,
+  // w HTML jest lekki placeholder, a właściwy <iframe> tworzymy dopiero wtedy,
+  // gdy dany kafelek zbliża się do widoku (IntersectionObserver) — dzięki temu
+  // mapy pojawiają się same podczas przewijania, ale strona startuje szybko i
+  // nie ładuje map placówek, do których użytkownik nigdy nie dotrze. Kliknięcie
+  // nadal działa jako natychmiastowe wczytanie.
+  function initMapFacades() {
+    var facades = document.querySelectorAll("[data-map-embed]");
+    if (!facades.length) return;
+
+    var loadMap = function (btn) {
+      if (btn.getAttribute("data-map-loaded")) return;
+      var src = btn.getAttribute("data-map-src");
+      if (!src) return;
+      btn.setAttribute("data-map-loaded", "1");
+      var iframe = document.createElement("iframe");
+      iframe.src = src;
+      iframe.title = btn.getAttribute("data-map-title") || "Mapa Google";
+      iframe.loading = "lazy";
+      iframe.setAttribute("referrerpolicy", "no-referrer-when-downgrade");
+      var parent = btn.parentNode;
+      if (parent) parent.replaceChild(iframe, btn);
+    };
+
+    // Klik/aktywacja z klawiatury wczytuje mapę natychmiast.
+    Array.prototype.forEach.call(facades, function (btn) {
+      btn.addEventListener("click", function () {
+        loadMap(btn);
+      });
+    });
+
+    // Auto-ładowanie, gdy kafelek zbliża się do widoku. Bez wsparcia dla
+    // IntersectionObserver ładujemy wszystkie od razu (zachowanie jak dawniej).
+    if ("IntersectionObserver" in window) {
+      var io = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              io.unobserve(entry.target);
+              loadMap(entry.target);
+            }
+          });
+        },
+        { rootMargin: "300px 0px" }
+      );
+      Array.prototype.forEach.call(facades, function (btn) {
+        io.observe(btn);
+      });
+    } else {
+      Array.prototype.forEach.call(facades, function (btn) {
+        loadMap(btn);
+      });
+    }
   }
 
   // Prefetch stron tego samego pochodzenia po najechaniu/dotknięciu linku
