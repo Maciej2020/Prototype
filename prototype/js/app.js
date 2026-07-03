@@ -326,13 +326,15 @@
     splide.mount();
   }
 
-  // Fasady map Google: osadzona mapa to ciężki zasób (skrypty + kafelki), a
-  // strona lokalizacji ma ich 10. Zamiast ładować wszystkie naraz na starcie,
-  // w HTML jest lekki placeholder, a właściwy <iframe> tworzymy dopiero wtedy,
-  // gdy dany kafelek zbliża się do widoku (IntersectionObserver) — dzięki temu
-  // mapy pojawiają się same podczas przewijania, ale strona startuje szybko i
-  // nie ładuje map placówek, do których użytkownik nigdy nie dotrze. Kliknięcie
-  // nadal działa jako natychmiastowe wczytanie.
+  // Fasady map Google: w HTML jest lekki placeholder ("Pokaż mapę") jako
+  // zabezpieczenie na wypadek gdyby JavaScript nie odpalił. Gdy tylko JS
+  // jest dostępny, natychmiast po załadowaniu strony podmieniamy wszystkie
+  // placeholdery na właściwe <iframe> z mapą Google — tak, żeby użytkownik
+  // od razu widział podgląd lokalizacji w każdym kafelku, bez konieczności
+  // klikania ani przewijania. Poszczególne iframe'y dostają natywne
+  // loading="lazy" — dzięki temu przeglądarka i tak inteligentnie
+  // priorytetyzuje pobieranie tych, które są w polu widzenia, ale mapy dla
+  // wszystkich kafelków są od razu dostępne w DOM.
   function initMapFacades() {
     var facades = document.querySelectorAll("[data-map-embed]");
     if (!facades.length) return;
@@ -351,48 +353,29 @@
       if (parent) parent.replaceChild(iframe, btn);
     };
 
-    // Klik/aktywacja z klawiatury wczytuje mapę natychmiast.
+    // Wczytaj wszystkie mapy natychmiast — użytkownik widzi je zaraz po
+    // otwarciu strony, nie po scrollu ani nie po kliknięciu.
     Array.prototype.forEach.call(facades, function (btn) {
-      btn.addEventListener("click", function () {
-        loadMap(btn);
-      });
+      loadMap(btn);
     });
-
-    // Auto-ładowanie, gdy kafelek zbliża się do widoku. Bez wsparcia dla
-    // IntersectionObserver ładujemy wszystkie od razu (zachowanie jak dawniej).
-    if ("IntersectionObserver" in window) {
-      var io = new IntersectionObserver(
-        function (entries) {
-          entries.forEach(function (entry) {
-            if (entry.isIntersecting) {
-              io.unobserve(entry.target);
-              loadMap(entry.target);
-            }
-          });
-        },
-        { rootMargin: "300px 0px" }
-      );
-      Array.prototype.forEach.call(facades, function (btn) {
-        io.observe(btn);
-      });
-    } else {
-      Array.prototype.forEach.call(facades, function (btn) {
-        loadMap(btn);
-      });
-    }
   }
 
   // Otwieranie natywnych aplikacji rezerwacji (Booksy, ZnanyLekarz) na
   // urządzeniach mobilnych. Adresy https są już powiązane z aplikacjami przez
   // App Links (Android) i Universal Links (iOS) — dane z plików assetlinks.json
-  // / apple-app-site-association obu serwisów. Aby powiązanie zadziałało:
-  //  - na Androidzie budujemy adres intent:// z nazwą pakietu aplikacji oraz
+  // / apple-app-site-association obu serwisów.
+  //  - Android: budujemy adres intent:// z nazwą pakietu aplikacji oraz
   //    awaryjnym adresem (S.browser_fallback_url). Dzięki temu aplikacja otwiera
   //    się nawet gdy weryfikacja App Links jest wyłączona, a gdy aplikacji nie
-  //    ma — przeglądarka otwiera zwykły adres https;
-  //  - na iOS wymuszamy nawigację na najwyższym poziomie zamiast target="_blank"
-  //    (Universal Links nie uruchamiają się z linków otwieranych w nowej karcie);
-  //    jeśli aplikacja nie jest zainstalowana, otwiera się Safari.
+  //    ma — przeglądarka otwiera zwykły adres https.
+  //  - iOS: Universal Links odpalają się najpewniej przy zwykłym tapnięciu
+  //    linku w TEJ SAMEJ karcie. Nie przechwytujemy więc kliknięcia (Apple
+  //    ignoruje Universal Links przy nawigacji przez JS `window.location`) —
+  //    zamiast tego usuwamy target="_blank" z linków rezerwacji, aby nawigacja
+  //    była top-level. ZnanyLekarz: profile lekarzy są objęte Universal Links,
+  //    więc apka otworzy się sama. Booksy: zwykłe adresy https NIE są objęte
+  //    (apka przejmuje tylko /link/* i */rwg/*), dlatego link Booksy przepisujemy
+  //    na link Branch (cdl.booksy.com) — patrz szczegóły niżej. Bez apki: Safari.
   // Na desktopie nie zmieniamy nic — link otwiera się w nowej karcie.
   function initBookingDeepLinks() {
     var ua = navigator.userAgent || "";
@@ -403,14 +386,83 @@
       (/Macintosh/i.test(ua) && "ontouchend" in document);
     if (!isAndroid && !isIOS) return;
 
-    // Host -> nazwa pakietu aplikacji na Androidzie (źródło: assetlinks.json).
+    // Host -> nazwa pakietu aplikacji na Androidzie (źródło: Google Play).
+    //   Booksy customer: net.booksy.customer
+    //     (play.google.com/store/apps/details?id=net.booksy.customer)
+    //   ZnanyLekarz dla pacjentów: pl.znanylekarz.uzytkownicy
+    //     (play.google.com/store/apps/details?id=pl.znanylekarz.uzytkownicy)
+    // Wcześniej użyta nazwa "pl.znanylekarz" jest nieprawidłowa —
+    // intent nie znajduje wtedy zainstalowanej apki i wpada w fallback do
+    // przeglądarki (aplikacja się nie otwiera nawet gdy jest zainstalowana).
     var androidPackages = {
       "booksy.com": "net.booksy.customer",
       "www.booksy.com": "net.booksy.customer",
-      "znanylekarz.pl": "pl.znanylekarz",
-      "www.znanylekarz.pl": "pl.znanylekarz",
+      "znanylekarz.pl": "pl.znanylekarz.uzytkownicy",
+      "www.znanylekarz.pl": "pl.znanylekarz.uzytkownicy",
     };
 
+    var isBookingHost = function (link) {
+      var url;
+      try {
+        url = new URL(link.href);
+      } catch (e) {
+        return null;
+      }
+      if (url.protocol !== "https:") return null;
+      return androidPackages[url.host] ? url : null;
+    };
+
+    if (isIOS) {
+      // Zwykłe tapnięcie linku w TEJ SAMEJ karcie daje największą szansę na
+      // uruchomienie Universal Links, dlatego usuwamy otwieranie w nowej karcie.
+      // Dla Booksy dodatkowo przepisujemy adres na link Branch (cdl.booksy.com):
+      //   - dane autorytatywne z API Branch (app-link-settings) dla klucza klienta
+      //     Booksy: ios_uri_scheme booksy://, ios_bundle_id com.sensi.BooksyCUST,
+      //     short_url_domain cdl.booksy.com (domena jest w apple-app-site-association
+      //     apki, dopasowanie /*), default_short_url_domain lhkw.app.link;
+      //   - dzięki temu na iOS z zainstalowaną apką Universal Link otwiera aplikację
+      //     Booksy (Branch przekazuje $canonical_url/$deeplink_path do routingu),
+      //     a bez apki następują czyste przekierowania (bez ekranu pośredniego)
+      //     na dokładny adres rezerwacji w Safari — bez komunikatu o błędzie.
+      // UWAGA (eksperyment): jeśli apka Booksy nie rozpozna $canonical_url, może
+      //   otworzyć ekran główny zamiast strony rezerwacji. Zwykłe linki https
+      //   Booksy NIE są objęte Universal Links (Booksy przejmuje tylko /link/*
+      //   i */rwg/*), dlatego bez tej sztuczki apka na iOS w ogóle się nie otworzy.
+      var BOOKSY_BRANCH_KEY = "key_live_flhKTnRyt5fr4gPqB7FzBnmmFyhDVlR1";
+      var BOOKSY_BRANCH_DOMAIN = "cdl.booksy.com";
+      var booksyHosts = { "booksy.com": 1, "www.booksy.com": 1 };
+
+      var buildBooksyBranchLink = function (url) {
+        // Adres rezerwacji bez #fragmentu (fragment nie trafia na serwer).
+        var target = url.origin + url.pathname + url.search;
+        var enc = encodeURIComponent(target);
+        return (
+          "https://" +
+          BOOKSY_BRANCH_DOMAIN +
+          "/a/" +
+          BOOKSY_BRANCH_KEY +
+          "?%24canonical_url=" +
+          enc +
+          "&%24ios_url=" +
+          enc +
+          "&%24fallback_url=" +
+          enc +
+          "&%24deeplink_path=" +
+          encodeURIComponent(url.pathname + url.search)
+        );
+      };
+
+      var links = document.querySelectorAll('a[href][target="_blank"]');
+      Array.prototype.forEach.call(links, function (link) {
+        var url = isBookingHost(link);
+        if (!url) return;
+        link.target = "_self";
+        if (booksyHosts[url.host]) link.href = buildBooksyBranchLink(url);
+      });
+      return;
+    }
+
+    // Android: klik -> intent:// (apka albo — jako fallback — przeglądarka).
     var buildIntentUrl = function (url, pkg) {
       // intent://HOST/PATH?QUERY#Intent;scheme=https;package=PKG;
       //   S.browser_fallback_url=...;end
@@ -434,23 +486,11 @@
       }
       var link = event.target.closest && event.target.closest("a[href]");
       if (!link) return;
-      var url;
-      try {
-        url = new URL(link.href);
-      } catch (e) {
-        return;
-      }
-      if (url.protocol !== "https:") return;
-      var pkg = androidPackages[url.host];
-      if (!pkg) return; // link inny niż Booksy/ZnanyLekarz — nie ruszamy
+      var url = isBookingHost(link);
+      if (!url) return; // link inny niż Booksy/ZnanyLekarz — nie ruszamy
 
       event.preventDefault();
-      if (isAndroid) {
-        window.location.href = buildIntentUrl(url, pkg);
-      } else {
-        // iOS: nawigacja na najwyższym poziomie uruchamia Universal Links.
-        window.location.href = url.href;
-      }
+      window.location.href = buildIntentUrl(url, androidPackages[url.host]);
     });
   }
 

@@ -1108,8 +1108,8 @@ img {
    szerokość karty (tak jak w wariancie dwuplatformowym) i wyśrodkować
    pojedynczy przycisk przez justify-content: center. */
 .location-card__platforms--single .location-card__platform {
-  flex: 0 1 148px;
-  max-width: 148px;
+  flex: 0 1 180px;
+  max-width: 180px;
 }
 
 .location-card__platform {
@@ -1118,8 +1118,8 @@ img {
   justify-content: center;
   flex: 1 1 0;
   min-width: 0;
-  height: 46px;
-  padding: 8px 8px;
+  height: 58px;
+  padding: 10px 14px;
   background: var(--surface);
   border: 1px solid var(--ink);
   border-radius: 10px;
@@ -1144,7 +1144,7 @@ img {
 .location-card__platform-logo {
   display: block;
   width: auto;
-  height: 16px;
+  height: 26px;
   max-width: 100%;
 }
 
