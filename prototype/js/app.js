@@ -386,20 +386,30 @@
       (/Macintosh/i.test(ua) && "ontouchend" in document);
     if (!isAndroid && !isIOS) return;
 
-    // Host -> nazwa pakietu aplikacji na Androidzie (źródło: Google Play).
+    // Host -> nazwa pakietu aplikacji na Androidzie.
     //   Booksy customer: net.booksy.customer
-    //     (play.google.com/store/apps/details?id=net.booksy.customer)
-    //   ZnanyLekarz dla pacjentów: pl.znanylekarz.uzytkownicy
-    //     (play.google.com/store/apps/details?id=pl.znanylekarz.uzytkownicy)
-    // Wcześniej użyta nazwa "pl.znanylekarz" jest nieprawidłowa —
-    // intent nie znajduje wtedy zainstalowanej apki i wpada w fallback do
-    // przeglądarki (aplikacja się nie otwiera nawet gdy jest zainstalowana).
+    //     (booksy.com/.well-known/assetlinks.json: handle_all_urls)
+    //   ZnanyLekarz PL: pl.znanylekarz
+    //     (www.znanylekarz.pl/.well-known/assetlinks.json: handle_all_urls;
+    //      Google Play: play.google.com/store/apps/details?id=pl.znanylekarz)
     var androidPackages = {
       "booksy.com": "net.booksy.customer",
       "www.booksy.com": "net.booksy.customer",
-      "znanylekarz.pl": "pl.znanylekarz.uzytkownicy",
-      "www.znanylekarz.pl": "pl.znanylekarz.uzytkownicy",
+      "znanylekarz.pl": "pl.znanylekarz",
+      "www.znanylekarz.pl": "pl.znanylekarz",
     };
+    var booksyHosts = { "booksy.com": 1, "www.booksy.com": 1 };
+
+    // Konfiguracja Branch dla Booksy (jedno źródło prawdy dla iOS i Androida).
+    // Zwykłe adresy https Booksy typu /pl-pl/{salon}/staffer/{id} NIE są
+    // objęte apple-app-site-association ani assetlinks.json aplikacji Booksy
+    // (apka przejmuje tylko ścieżki /link/* oraz */rwg/*), dlatego bez linka
+    // Branch aplikacja Booksy w ogóle się nie otwiera — ani na iOS, ani na
+    // Androidzie. Branch (cdl.booksy.com) jest w app-site-association Booksy
+    // z dopasowaniem /*, więc jest jedyną drogą do otwarcia aplikacji z
+    // dowolnego linka do rezerwacji.
+    var BOOKSY_BRANCH_KEY = "key_live_flhKTnRyt5fr4gPqB7FzBnmmFyhDVlR1";
+    var BOOKSY_BRANCH_DOMAIN = "cdl.booksy.com";
 
     var isBookingHost = function (link) {
       var url;
@@ -412,57 +422,23 @@
       return androidPackages[url.host] ? url : null;
     };
 
-    if (isIOS) {
-      // Zwykłe tapnięcie linku w TEJ SAMEJ karcie daje największą szansę na
-      // uruchomienie Universal Links, dlatego usuwamy otwieranie w nowej karcie.
-      // Dla Booksy dodatkowo przepisujemy adres na link Branch (cdl.booksy.com):
-      //   - dane autorytatywne z API Branch (app-link-settings) dla klucza klienta
-      //     Booksy: ios_uri_scheme booksy://, ios_bundle_id com.sensi.BooksyCUST,
-      //     short_url_domain cdl.booksy.com (domena jest w apple-app-site-association
-      //     apki, dopasowanie /*), default_short_url_domain lhkw.app.link;
-      //   - dzięki temu na iOS z zainstalowaną apką Universal Link otwiera aplikację
-      //     Booksy (Branch przekazuje $canonical_url/$deeplink_path do routingu),
-      //     a bez apki następują czyste przekierowania (bez ekranu pośredniego)
-      //     na dokładny adres rezerwacji w Safari — bez komunikatu o błędzie.
-      // UWAGA (eksperyment): jeśli apka Booksy nie rozpozna $canonical_url, może
-      //   otworzyć ekran główny zamiast strony rezerwacji. Zwykłe linki https
-      //   Booksy NIE są objęte Universal Links (Booksy przejmuje tylko /link/*
-      //   i */rwg/*), dlatego bez tej sztuczki apka na iOS w ogóle się nie otworzy.
-      var BOOKSY_BRANCH_KEY = "key_live_flhKTnRyt5fr4gPqB7FzBnmmFyhDVlR1";
-      var BOOKSY_BRANCH_DOMAIN = "cdl.booksy.com";
-      var booksyHosts = { "booksy.com": 1, "www.booksy.com": 1 };
+    var buildBooksyBranchLink = function (url) {
+      // Adres rezerwacji bez #fragmentu (fragment nie trafia na serwer).
+      var target = url.origin + url.pathname + url.search;
+      var enc = encodeURIComponent(target);
+      return (
+        "https://" +
+        BOOKSY_BRANCH_DOMAIN +
+        "/a/" +
+        BOOKSY_BRANCH_KEY +
+        "?%24canonical_url=" + enc +
+        "&%24ios_url=" + enc +
+        "&%24android_url=" + enc +
+        "&%24fallback_url=" + enc +
+        "&%24deeplink_path=" + encodeURIComponent(url.pathname + url.search)
+      );
+    };
 
-      var buildBooksyBranchLink = function (url) {
-        // Adres rezerwacji bez #fragmentu (fragment nie trafia na serwer).
-        var target = url.origin + url.pathname + url.search;
-        var enc = encodeURIComponent(target);
-        return (
-          "https://" +
-          BOOKSY_BRANCH_DOMAIN +
-          "/a/" +
-          BOOKSY_BRANCH_KEY +
-          "?%24canonical_url=" +
-          enc +
-          "&%24ios_url=" +
-          enc +
-          "&%24fallback_url=" +
-          enc +
-          "&%24deeplink_path=" +
-          encodeURIComponent(url.pathname + url.search)
-        );
-      };
-
-      var links = document.querySelectorAll('a[href][target="_blank"]');
-      Array.prototype.forEach.call(links, function (link) {
-        var url = isBookingHost(link);
-        if (!url) return;
-        link.target = "_self";
-        if (booksyHosts[url.host]) link.href = buildBooksyBranchLink(url);
-      });
-      return;
-    }
-
-    // Android: klik -> intent:// (apka albo — jako fallback — przeglądarka).
     var buildIntentUrl = function (url, pkg) {
       // intent://HOST/PATH?QUERY#Intent;scheme=https;package=PKG;
       //   S.browser_fallback_url=...;end
@@ -480,6 +456,29 @@
       );
     };
 
+    if (isIOS) {
+      // iOS: zwykłe tapnięcie linku w tej samej karcie daje największą szansę
+      // na uruchomienie Universal Links (nawigacja przez JS jest przez Apple
+      // ignorowana). Usuwamy więc target="_blank" ze wszystkich linków do
+      // Booksy/ZnanyLekarz i podmieniamy href Booksy na link Branch, który
+      // umie otworzyć aplikację. ZnanyLekarz zostaje bez zmian — profile
+      // lekarzy są w app-site-association i Universal Links odpalają się same.
+      var links = document.querySelectorAll('a[href][target="_blank"]');
+      Array.prototype.forEach.call(links, function (link) {
+        var url = isBookingHost(link);
+        if (!url) return;
+        link.target = "_self";
+        if (booksyHosts[url.host]) link.href = buildBooksyBranchLink(url);
+      });
+      return;
+    }
+
+    // Android:
+    //   Booksy -> nawigacja na link Branch (cdl.booksy.com). Chrome sprawdza
+    //     wtedy assetlinks.json dla cdl.booksy.com i uruchamia apkę Booksy,
+    //     a bez apki Branch przekierowuje na normalny adres rezerwacji.
+    //   ZnanyLekarz -> intent:// z pakietem pl.znanylekarz.uzytkownicy;
+    //     profile lekarzy są objęte App Links, więc apka otwiera się od razu.
     document.addEventListener("click", function (event) {
       if (event.defaultPrevented || (event.button && event.button !== 0)) {
         return;
@@ -490,7 +489,11 @@
       if (!url) return; // link inny niż Booksy/ZnanyLekarz — nie ruszamy
 
       event.preventDefault();
-      window.location.href = buildIntentUrl(url, androidPackages[url.host]);
+      if (booksyHosts[url.host]) {
+        window.location.href = buildBooksyBranchLink(url);
+      } else {
+        window.location.href = buildIntentUrl(url, androidPackages[url.host]);
+      }
     });
   }
 
