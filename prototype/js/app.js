@@ -62,6 +62,58 @@
     initMapFacades();
     initBookingDeepLinks();
     initCertsCarousel();
+    initReviewsCarousel();
+  }
+
+  // Karuzela opinii pacjentów na stronie głównej — te same założenia co
+  // karuzela certyfikatów (Splide, pętla, autoplay z pauzą na hover/focus,
+  // brak animacji przy prefers-reduced-motion), ale prostsza: bez popupu i
+  // bez powiększania aktywnego slajdu — to wielokolumnowa karuzela kart z
+  // cytatami, która przewija się samodzielnie.
+  function initReviewsCarousel() {
+    var splideRoot = document.getElementById("opinie-splide");
+    if (!splideRoot || typeof Splide === "undefined") return;
+
+    var wrapper = splideRoot.closest(".reviews-carousel");
+    var prevBtn = wrapper ? wrapper.querySelector("[data-reviews-prev]") : null;
+    var nextBtn = wrapper ? wrapper.querySelector("[data-reviews-next]") : null;
+
+    var reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    var splide = new Splide(splideRoot, {
+      type: "loop",
+      perPage: 3,
+      perMove: 1,
+      gap: "22px",
+      arrows: false,
+      pagination: false,
+      drag: true,
+      speed: 500,
+      easing: "cubic-bezier(0.22, 0.61, 0.36, 1)",
+      autoplay: !reduceMotion,
+      interval: 5000,
+      pauseOnHover: true,
+      pauseOnFocus: true,
+      breakpoints: {
+        980: { perPage: 2 },
+        620: { perPage: 1 },
+      },
+    });
+
+    if (prevBtn) {
+      prevBtn.addEventListener("click", function () {
+        splide.go("<");
+      });
+    }
+    if (nextBtn) {
+      nextBtn.addEventListener("click", function () {
+        splide.go(">");
+      });
+    }
+
+    splide.mount();
   }
 
   // Karuzela certyfikatów w sekcji "O mnie", zbudowana na bibliotece
@@ -370,7 +422,7 @@
             }
           });
         },
-        { rootMargin: "300px 0px" }
+        { rootMargin: "300px 0px" },
       );
       Array.prototype.forEach.call(facades, function (btn) {
         io.observe(btn);

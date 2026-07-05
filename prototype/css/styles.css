@@ -88,6 +88,18 @@ img {
   color: var(--ink);
 }
 
+/* Zmniejszony odstęp między sąsiadującymi, powiązanymi sekcjami
+   (np. Konsultacje → Oferta zabiegowa). Selektor złożony (.band.band--…)
+   ma wyższą swoistość niż responsywne reguły .band, więc nadpisuje ich
+   padding także powyżej 720 i 1040 px. */
+.band.band--tight-bottom {
+  padding-bottom: 28px;
+}
+
+.band.band--tight-top {
+  padding-top: 28px;
+}
+
 .container {
   width: min(100%, var(--maxw));
   margin-inline: auto;
@@ -369,7 +381,7 @@ img {
 }
 
 .hero__actions .btn {
-  min-width: 260px;
+  min-width: min(260px, 100%);
 }
 
 /* ---------- Cards (trust / opinie) ---------- */
@@ -519,6 +531,122 @@ img {
     grid-template-columns: repeat(2, 1fr);
     gap: 24px;
   }
+}
+
+/* ---------- Opinie (karuzela Splide) ---------- */
+.reviews-carousel {
+  position: relative;
+  margin-top: 36px;
+}
+
+.reviews-carousel .splide__track {
+  position: relative;
+  overflow: hidden;
+  padding: 6px 4px 10px;
+}
+
+.reviews-carousel .splide__list {
+  display: flex;
+  align-items: stretch;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.reviews-carousel .splide__slide {
+  height: auto;
+}
+
+.reviews-carousel__card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  height: 100%;
+  margin: 0;
+  padding: 26px 24px;
+  background: var(--surface);
+  border: 1px solid var(--line-soft);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+}
+
+.reviews-carousel__stars {
+  color: #bf9b5f;
+  font-size: 0.95rem;
+  letter-spacing: 0.14em;
+}
+
+.reviews-carousel__quote {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 1.14rem;
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--ink);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 7;
+  line-clamp: 7;
+  overflow: hidden;
+}
+
+.reviews-carousel__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: auto;
+}
+
+.reviews-carousel__author {
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.reviews-carousel__detail {
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.reviews-carousel__controls {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 22px;
+}
+
+.reviews-carousel__btn {
+  display: inline-grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  font-size: 1.3rem;
+  line-height: 1;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  cursor: pointer;
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease;
+}
+
+.reviews-carousel__btn:hover,
+.reviews-carousel__btn:focus-visible {
+  color: var(--cream);
+  background: var(--ink);
+}
+
+.reviews-carousel__source {
+  margin-top: 14px;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.reviews-carousel__source a {
+  color: var(--ink);
+  text-underline-offset: 0.18em;
 }
 
 /* ---------- Certyfikaty (karuzela Splide — wzór "Auto Width/Height") ---------- */
