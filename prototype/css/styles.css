@@ -186,11 +186,11 @@ img {
 .brand__mark {
   display: grid;
   place-items: center;
-  width: 54px;
-  height: 54px;
-  flex: 0 0 54px;
+  width: 84px;
+  height: 84px;
+  flex: 0 0 84px;
   font-family: var(--serif);
-  font-size: 1.4rem;
+  font-size: 1.7rem;
   letter-spacing: 0.04em;
   color: var(--ink);
   border: 1px solid var(--line);
@@ -198,10 +198,10 @@ img {
 }
 
 .brand__mark--sm {
-  width: 46px;
-  height: 46px;
-  flex-basis: 46px;
-  font-size: 1.18rem;
+  width: 70px;
+  height: 70px;
+  flex-basis: 70px;
+  font-size: 1.5rem;
 }
 
 /* Logo SVG w kółku brand__mark (header/footer) i hero__mark (hero na index).
@@ -336,8 +336,8 @@ img {
 .hero__mark {
   display: grid;
   place-items: center;
-  width: 110px;
-  height: 110px;
+  width: 240px;
+  height: 240px;
   margin: 0 auto 26px;
   font-family: var(--serif);
   font-size: 3rem;
@@ -1108,8 +1108,8 @@ img {
    szerokość karty (tak jak w wariancie dwuplatformowym) i wyśrodkować
    pojedynczy przycisk przez justify-content: center. */
 .location-card__platforms--single .location-card__platform {
-  flex: 0 1 180px;
-  max-width: 180px;
+  flex: 0 1 148px;
+  max-width: 148px;
 }
 
 .location-card__platform {
@@ -1118,8 +1118,8 @@ img {
   justify-content: center;
   flex: 1 1 0;
   min-width: 0;
-  height: 58px;
-  padding: 10px 14px;
+  height: 46px;
+  padding: 8px 8px;
   background: var(--surface);
   border: 1px solid var(--ink);
   border-radius: 10px;
@@ -1144,7 +1144,7 @@ img {
 .location-card__platform-logo {
   display: block;
   width: auto;
-  height: 26px;
+  height: 16px;
   max-width: 100%;
 }
 
