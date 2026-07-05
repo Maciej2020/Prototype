@@ -99,6 +99,7 @@ img {
   text-align: center;
 }
 
+.section-head h1,
 .section-head h2 {
   font-size: clamp(1.7rem, 5vw, 3rem);
 }
@@ -422,6 +423,32 @@ img {
 
 .split__body .btn {
   margin-top: 26px;
+}
+
+/* About subsections (o mnie) */
+.about-points {
+  margin-top: 28px;
+  display: grid;
+  gap: 26px;
+}
+
+.about-point {
+  padding-left: 22px;
+  border-left: 2px solid var(--line);
+}
+
+.split__body .about-point__title {
+  margin: 0 0 8px;
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1.18;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+}
+
+.about-point p {
+  margin: 0;
 }
 
 /* ---------- Oferta zabiegowa ---------- */
@@ -1184,6 +1211,30 @@ img {
 @media (min-width: 900px) {
   .locations {
     grid-template-columns: repeat(4, 1fr);
+  }
+
+  /* Kraków zajmuje pełną szerokość, a Gliwice, Dębica i Bochnia
+     układają się w jednym rzędzie pod spodem. Siatka ma 4 kolumny z tym
+     samym odstępem co karty Krakowa, więc kafelki miast mają identyczny
+     rozmiar jak kafelki Krakowa (czwarta kolumna pozostaje pusta). */
+  .locations-groups {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 18px;
+    row-gap: 48px;
+    align-items: start;
+  }
+
+  .locations-groups > .locations-group:first-child {
+    grid-column: 1 / -1;
+  }
+
+  .locations-groups > .locations-group + .locations-group {
+    margin-top: 0;
+  }
+
+  .locations-groups > .locations-group:not(:first-child) .locations {
+    grid-template-columns: 1fr;
   }
 }
 
